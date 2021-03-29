@@ -1,0 +1,6 @@
+.container-carousel {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  grid-gap: 1rem;
+  grid-auto-rows: 250px;
+}

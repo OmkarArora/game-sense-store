@@ -2,3 +2,8 @@
   display: flex;
   justify-content: space-between;
 }
+
+.container-user-details {
+  display: flex;
+  gap: 1rem;
+}

@@ -1,0 +1,24 @@
+.container-banner {
+  --banner-color-1: #34108b;
+  --banner-color-2: #4a1aa1;
+  --banner-color-3: #6b3aba;
+  --banner-color-4: #6957ab;
+  border-radius: 1rem;
+  display: flex;
+  background: linear-gradient(
+    to right,
+    var(--banner-color-1) 0%,
+    var(--banner-color-2) 5%,
+    var(--banner-color-3) 40%,
+    var(--banner-color-4) 95%
+  );
+  color: white;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  margin: 1rem 0;
+}
+
+.container-banner img {
+  display: block;
+  width: 320px;
+  height: auto;
+}
