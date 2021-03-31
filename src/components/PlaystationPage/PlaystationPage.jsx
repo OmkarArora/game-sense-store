@@ -8,16 +8,27 @@ import { IoBagCheckOutline } from "react-icons/io5";
 import "./playstationPage.css";
 
 export const PlaystationPage = () => {
-  const { data } = usePlaystation();
+  const { products, ratingFilter, priceFilter, dispatch } = usePlaystation();
   const { cartState, cartDispatch } = useCart();
-  console.log(cartState);
+  
+  const filterData = (products, price, rating) => {
+    let data = [...products];
+    if (price)
+      data = data.filter(
+        (item) => item.price >= price.low && item.price < price.high
+      );
+    if (rating) data = data.filter((item) => item.rating >= rating);
+    return data;
+  };
+  const filteredData = filterData(products, priceFilter, ratingFilter);
+  
   return (
     <div className="container-app">
       <Header active="playstation" />
       <main className="main-playstation">
-        <FilterMenu />
+        <FilterMenu dispatch={(args) => dispatch(args)} ratingFilter={ratingFilter} priceFilter={priceFilter}/>
         <div className="games-list product-grid">
-          {data.map((item) => {
+          {filteredData.map((item) => {
             return (
               <CardCustom key={item.id}>
                 <CardImage image={item.coverImage} title={item.name} />
@@ -46,7 +57,9 @@ export const PlaystationPage = () => {
                   </div>
                   <div>
                     <div className="custom-card-price">
-                      {item.currency && item.currency} {item.price}
+                      {item.price === 0
+                        ? "Free"
+                        : `${item.currency} ${item.price}`}
                     </div>
                     <div className="custom-container-tags">
                       {item.platforms.map((_item) => (
@@ -63,10 +76,21 @@ export const PlaystationPage = () => {
                   {cartState.cart.find(
                     (cartItem) => cartItem.id === item.id
                   ) ? (
-                    <div className="text-addedToCart playstation"><span className="icon-addedToCart"><IoBagCheckOutline/></span>Added to Cart</div>
+                    <div className="text-addedToCart playstation">
+                      <span className="icon-addedToCart">
+                        <IoBagCheckOutline />
+                      </span>
+                      Added to Cart
+                    </div>
                   ) : (
                     <div className="custom-container-btn-action playstation">
-                      <button onClick={() => cartDispatch({type: "ADD_TO_CART", payload: item})}>Add to cart</button>
+                      <button
+                        onClick={() =>
+                          cartDispatch({ type: "ADD_TO_CART", payload: item })
+                        }
+                      >
+                        Add to cart
+                      </button>
                     </div>
                   )}
                 </CardContent>

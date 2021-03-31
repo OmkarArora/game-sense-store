@@ -26,10 +26,10 @@ export const data = [
 		category: "game",
 		platforms: ["PS5"],
 		name: "ASTRO BOT Rescue Mission",
-		price: "Free",
-		currency: null,
+		price: 0,
+		currency: "₹",
 		discountOffer: null,
-		rating: 5,
+		rating: 2,
 		coverImage: "https://image.api.playstation.com/vulcan/img/rnd/202010/2716/sxjFijynINdI4aweDIFDinb8.jpg?w=940&thumb=false"
 	}
 ]
