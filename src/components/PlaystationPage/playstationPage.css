@@ -5,3 +5,12 @@
 .main-playstation .games-list {
   margin-left: calc(1rem + var(--width-filterBox));
 }
+
+.custom-container-btn-action.playstation button {
+  color: white;
+  background-color: var(--color-playstation);
+}
+
+.custom-container-btn-action.playstation button:hover {
+  background-color: var(--color-playstation-dark);
+}

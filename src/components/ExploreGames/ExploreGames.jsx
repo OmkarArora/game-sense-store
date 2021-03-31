@@ -3,7 +3,7 @@ import "./exploreGames.css";
 
 export const ExploreGames = () => {
   return (
-    <div className="container-exploreGames">
+    <div className="product-grid">
       <Card
         type="showcase"
         colorTag="#FF0099"

@@ -13,9 +13,70 @@ body {
   --width-filterBox: 190px;
   --padding-page: 2rem;
 
+  /* z indices */
   --z-header: 2;
+
+  /* colors */
+  --color-yellow: rgb(255, 216, 20);
+  --color-yellow-dark: rgb(247, 202, 0);
+  --color-playstation: rgba(0, 111, 205, 0.9);
+  --color-playstation-dark: rgba(0, 111, 205, 1);
 }
 
 .container-app {
   padding: 0 2rem 2rem 2rem;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 1.5rem;
+}
+
+.custom-container-heart {
+  color: rgb(224, 36, 94);
+  cursor: pointer;
+  font-size: 1.4rem;
+  padding: 5px 7px 0px 7px;
+  border-radius: 50%;
+}
+
+.custom-container-heart:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.custom-container-btn-action {
+  padding: 0 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.custom-container-btn-action button {
+  width: 60%;
+  border-radius: 1rem;
+  border: none;
+  outline: none;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-yellow);
+  cursor: pointer;
+  color: #0f1111;
+  font-size: 0.9rem;
+}
+
+.custom-container-btn-action button:hover {
+  background-color: var(--color-yellow-dark);
+}
+
+.custom-container-tags {
+  display: flex;
+  gap: 5px;
+}
+
+.custom-container-rating {
+  font-size: 1.2rem;
+  padding: 4px 0 0 0;
+}
+
+.custom-card-price {
+  margin-bottom: 5px;
 }
