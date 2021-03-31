@@ -1,0 +1,7 @@
+.main-playstation {
+  margin-top: 1rem;
+}
+
+.main-playstation .games-list {
+  margin-left: calc(1rem + var(--width-filterBox));
+}

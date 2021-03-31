@@ -1,0 +1,8 @@
+.container-filterMenu {
+  width: var(--width-filterBox);
+  position: fixed;
+  left: var(--padding-page);
+  border-right: 1px solid black;
+  height: 100%;
+  margin-top: 1rem;
+}
