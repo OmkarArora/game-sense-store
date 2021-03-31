@@ -1,12 +1,17 @@
+import { useEffect } from "react"
 import { Banner } from "../Banner/Banner"
 import { Carousel } from "../Carousel/Carousel"
+import { useCart } from "../contexts/Cart/cartContext"
 import { ExploreGames } from "../ExploreGames/ExploreGames"
 import { Header } from "../Header/Header"
 
 export const Home = () => {
+	const {cartState, cartDispatch} = useCart();
+	console.log(cartState);
+	useEffect(() => cartDispatch(), [cartDispatch]);
 	return (
-		<div style={{padding: "0 2rem 2rem 2rem"}}>
-			<Header/>
+		<div className="container-app">
+			<Header active="discover"/>
 			<Banner/>
 			<h3>New Releases</h3>
 			<Carousel/>
