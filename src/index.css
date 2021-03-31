@@ -23,6 +23,24 @@ body {
   --color-playstation-dark: rgba(0, 111, 205, 1);
 }
 
+.text-addedToCart {
+  font-weight: 500;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.text-addedToCart .icon-addedToCart {
+  font-size: 1.3rem;
+  position: relative;
+  top: 1px;
+}
+
+.text-addedToCart.playstation {
+  color: var(--color-playstation-dark);
+}
+
 .container-app {
   padding: 0 2rem 2rem 2rem;
 }

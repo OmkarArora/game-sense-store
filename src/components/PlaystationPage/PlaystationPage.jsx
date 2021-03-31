@@ -2,12 +2,15 @@ import { CardCustom, CardContent, CardImage, Tag, StarRating } from "shoto-ui";
 import { FilterMenu } from "../FilterMenu/FilterMenu";
 import { Header } from "../Header/Header";
 import { usePlaystation } from "../contexts/Playstation/playstationContext";
+import { useCart } from "../contexts/Cart/cartContext";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { IoBagCheckOutline } from "react-icons/io5";
 import "./playstationPage.css";
 
 export const PlaystationPage = () => {
   const { data } = usePlaystation();
-  console.log(data);
+  const { cartState, cartDispatch } = useCart();
+  console.log(cartState);
   return (
     <div className="container-app">
       <Header active="playstation" />
@@ -27,7 +30,10 @@ export const PlaystationPage = () => {
                       }}
                     >
                       <span className="custom-container-rating">
-                        <StarRating rating={item.rating} color={"rgb(255, 216, 20)"} />
+                        <StarRating
+                          rating={item.rating}
+                          color={"rgb(255, 216, 20)"}
+                        />
                       </span>
                       <div
                         className="custom-container-heart"
@@ -54,9 +60,15 @@ export const PlaystationPage = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="custom-container-btn-action playstation">
-                    <button>Add to cart</button>
-                  </div>
+                  {cartState.cart.find(
+                    (cartItem) => cartItem.id === item.id
+                  ) ? (
+                    <div className="text-addedToCart playstation"><span className="icon-addedToCart"><IoBagCheckOutline/></span>Added to Cart</div>
+                  ) : (
+                    <div className="custom-container-btn-action playstation">
+                      <button onClick={() => cartDispatch({type: "ADD_TO_CART", payload: item})}>Add to cart</button>
+                    </div>
+                  )}
                 </CardContent>
               </CardCustom>
             );
