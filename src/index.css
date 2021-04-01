@@ -39,10 +39,6 @@ body {
   top: 1px;
 }
 
-.text-addedToCart.playstation {
-  color: var(--color-playstation-dark);
-}
-
 .container-app {
   padding: 0 2rem 2rem 2rem;
 }

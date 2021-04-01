@@ -3,10 +3,10 @@ import { FilterMenu } from "../FilterMenu/FilterMenu";
 import { Header } from "../Header/Header";
 import { usePlaystation } from "../contexts/Playstation/playstationContext";
 import { useCart } from "../contexts/Cart/cartContext";
+import { useWishlist } from "../contexts/Wishlist/wishlistContext";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IoBagCheckOutline } from "react-icons/io5";
 import "./playstationPage.css";
-import { useWishlist } from "../contexts/Wishlist/wishlistContext";
 
 export const PlaystationPage = () => {
   const yellowColor = "rgb(255, 149, 41)";

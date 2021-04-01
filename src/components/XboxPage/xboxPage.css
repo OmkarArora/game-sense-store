@@ -1,3 +1,7 @@
+.text-addedToCart.xbox {
+  color: var(--color-xbox-dark);
+}
+
 .custom-container-btn-action.xbox button {
   color: white;
   background-color: var(--color-xbox);

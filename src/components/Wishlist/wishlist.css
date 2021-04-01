@@ -1,0 +1,20 @@
+.text-addedToCart.wishlist {
+  color: var(--color-yellow-dark);
+}
+
+.card-wishlist {
+  position: relative;
+}
+
+.container-wishlist-cross {
+  font-size: 1.4rem;
+  color: var(--color-yellow);
+  position: absolute;
+  right: 0.5rem;
+  top: 0.3rem;
+  cursor: pointer;
+}
+
+.container-wishlist-cross:hover {
+  color: var(--color-yellow-dark);
+}

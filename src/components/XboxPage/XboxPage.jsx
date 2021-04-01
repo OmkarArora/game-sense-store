@@ -3,10 +3,10 @@ import { FilterMenu } from "../FilterMenu/FilterMenu";
 import { Header } from "../Header/Header";
 import { useXbox } from "../contexts//Xbox/xboxContext";
 import { useCart } from "../contexts/Cart/cartContext";
+import { useWishlist } from "../contexts/Wishlist/wishlistContext";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IoBagCheckOutline } from "react-icons/io5";
 import "./xboxPage.css";
-import { useWishlist } from "../contexts/Wishlist/wishlistContext";
 
 export const XboxPage = () => {
   const yellowColor = "rgb(255, 149, 41)";

@@ -1,3 +1,7 @@
+.text-addedToCart.playstation {
+  color: var(--color-playstation-dark);
+}
+
 .custom-container-btn-action.playstation button {
   color: white;
   background-color: var(--color-playstation);

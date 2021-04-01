@@ -22,15 +22,19 @@ export const Navbar = ({ active }) => {
           </Link>
         </li>
         <li>
-          {" "}
           <Link
             to="/xbox"
             className={active === "xbox" ? "link active" : "link"}
           >
             Xbox &amp; Windows
-          </Link>{" "}
+          </Link>
         </li>
-        <li>Wishlist</li>
+        <li><Link
+            to="/wishlist"
+            className={active === "wishlist" ? "link active" : "link"}
+          >
+            Wishlist
+          </Link></li>
       </ul>
     </nav>
   );
