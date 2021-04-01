@@ -69,6 +69,11 @@ body {
   background-color: rgba(0, 0, 0, 0.08);
 }
 
+.text-addedToCart {
+  flex-grow: 1;
+  align-items: flex-end;
+}
+
 .custom-container-btn-action {
   padding: 0 5px;
   display: flex;
