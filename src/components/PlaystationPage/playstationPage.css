@@ -1,11 +1,3 @@
-.main-playstation {
-  margin-top: 1rem;
-}
-
-.main-playstation .games-list {
-  margin-left: calc(1rem + var(--width-filterBox));
-}
-
 .custom-container-btn-action.playstation button {
   color: white;
   background-color: var(--color-playstation);

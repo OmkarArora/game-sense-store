@@ -6,12 +6,30 @@ export const Navbar = ({ active }) => {
     <nav className="navbar">
       <ul>
         <li>
-          <Link to="/" className={active==="discover"?"link active":"link"}>Discover</Link>
+          <Link
+            to="/"
+            className={active === "discover" ? "link active" : "link"}
+          >
+            Discover
+          </Link>
         </li>
         <li>
-          <Link to="/playstation" className={active==="playstation"?"link active":"link"}>Playstation</Link>
+          <Link
+            to="/playstation"
+            className={active === "playstation" ? "link active" : "link"}
+          >
+            Playstation
+          </Link>
         </li>
-        <li>Xbox &amp; Windows</li>
+        <li>
+          {" "}
+          <Link
+            to="/xbox"
+            className={active === "xbox" ? "link active" : "link"}
+          >
+            Xbox &amp; Windows
+          </Link>{" "}
+        </li>
         <li>Wishlist</li>
       </ul>
     </nav>

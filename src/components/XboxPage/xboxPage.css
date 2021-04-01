@@ -1,0 +1,8 @@
+.custom-container-btn-action.xbox button {
+  color: white;
+  background-color: var(--color-xbox);
+}
+
+.custom-container-btn-action.xbox button:hover {
+  background-color: var(--color-xbox-dark);
+}

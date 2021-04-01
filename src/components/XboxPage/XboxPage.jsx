@@ -1,18 +1,18 @@
 import { CardCustom, CardContent, CardImage, Tag, StarRating } from "shoto-ui";
 import { FilterMenu } from "../FilterMenu/FilterMenu";
 import { Header } from "../Header/Header";
-import { usePlaystation } from "../contexts/Playstation/playstationContext";
+import { useXbox } from "../contexts//Xbox/xboxContext";
 import { useCart } from "../contexts/Cart/cartContext";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IoBagCheckOutline } from "react-icons/io5";
-import "./playstationPage.css";
+import "./xboxPage.css";
 import { useWishlist } from "../contexts/Wishlist/wishlistContext";
 
-export const PlaystationPage = () => {
+export const XboxPage = () => {
   const yellowColor = "rgb(255, 149, 41)";
-  const blueColor = "rgb(0, 111, 205)";
+  const greenColor = "rgb(16, 124, 16)";
 
-  const { products, ratingFilter, priceFilter, dispatch } = usePlaystation();
+  const { products, ratingFilter, priceFilter, dispatch } = useXbox();
   const { cart, cartDispatch } = useCart();
   const { wishlist, wishlistDispatch } = useWishlist();
 
@@ -29,7 +29,7 @@ export const PlaystationPage = () => {
 
   return (
     <div className="container-app">
-      <Header active="playstation" />
+      <Header active="xbox" />
       <main className="main-container-products">
         <FilterMenu
           dispatch={(args) => dispatch(args)}
@@ -92,8 +92,8 @@ export const PlaystationPage = () => {
                     <div className="custom-container-tags">
                       {item.platforms.map((_item) => (
                         <Tag
-                          color={blueColor}
-                          borderColor={blueColor}
+                          color={greenColor}
+                          borderColor={greenColor}
                           key={`${item.id}${_item}`}
                         >
                           {_item}
@@ -102,14 +102,14 @@ export const PlaystationPage = () => {
                     </div>
                   </div>
                   {cart.find((cartItem) => cartItem.id === item.id) ? (
-                    <div className="text-addedToCart playstation">
+                    <div className="text-addedToCart xbox">
                       <span className="icon-addedToCart">
                         <IoBagCheckOutline />
                       </span>
                       Added to Cart
                     </div>
                   ) : (
-                    <div className="custom-container-btn-action playstation">
+                    <div className="custom-container-btn-action xbox">
                       <button
                         onClick={() =>
                           cartDispatch({ type: "ADD_TO_CART", payload: item })
