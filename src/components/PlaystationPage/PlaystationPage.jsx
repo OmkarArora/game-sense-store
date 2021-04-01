@@ -6,13 +6,15 @@ import { useCart } from "../contexts/Cart/cartContext";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IoBagCheckOutline } from "react-icons/io5";
 import "./playstationPage.css";
+import { useWishlist } from "../contexts/Wishlist/wishlistContext";
 
 export const PlaystationPage = () => {
   const yellowColor = "rgb(255, 149, 41)";
 
   const { products, ratingFilter, priceFilter, dispatch } = usePlaystation();
-  const { cartState, cartDispatch } = useCart();
-  
+  const { cart, cartDispatch } = useCart();
+  const { wishlist, wishlistDispatch } = useWishlist();
+
   const filterData = (products, price, rating) => {
     let data = [...products];
     if (price)
@@ -23,12 +25,16 @@ export const PlaystationPage = () => {
     return data;
   };
   const filteredData = filterData(products, priceFilter, ratingFilter);
-  
+
   return (
     <div className="container-app">
       <Header active="playstation" />
       <main className="main-playstation">
-        <FilterMenu dispatch={(args) => dispatch(args)} ratingFilter={ratingFilter} priceFilter={priceFilter}/>
+        <FilterMenu
+          dispatch={(args) => dispatch(args)}
+          ratingFilter={ratingFilter}
+          priceFilter={priceFilter}
+        />
         <div className="games-list product-grid">
           {filteredData.map((item) => {
             return (
@@ -43,17 +49,36 @@ export const PlaystationPage = () => {
                       }}
                     >
                       <span className="custom-container-rating">
-                        <StarRating
-                          rating={item.rating}
-                          color={yellowColor}
-                        />
+                        <StarRating rating={item.rating} color={yellowColor} />
                       </span>
-                      <div
-                        className="custom-container-heart"
-                        onClick={() => console.log("clicked like")}
-                      >
-                        {true ? <AiFillHeart /> : <AiOutlineHeart />}
-                      </div>
+
+                      {wishlist.find(
+                        (wishlistItem) => wishlistItem.id === item.id
+                      ) ? (
+                        <div
+                          className="custom-container-heart"
+                          onClick={() =>
+                            wishlistDispatch({
+                              type: "REMOVE_FROM_WISHLIST",
+                              payload: item.id,
+                            })
+                          }
+                        >
+                          <AiFillHeart />
+                        </div>
+                      ) : (
+                        <div
+                          className="custom-container-heart"
+                          onClick={() =>
+                            wishlistDispatch({
+                              type: "ADD_TO_WISHLIST",
+                              payload: item,
+                            })
+                          }
+                        >
+                          <AiOutlineHeart />
+                        </div>
+                      )}
                     </div>
                     <div>{item.name}</div>
                   </div>
@@ -75,9 +100,7 @@ export const PlaystationPage = () => {
                       ))}
                     </div>
                   </div>
-                  {cartState.cart.find(
-                    (cartItem) => cartItem.id === item.id
-                  ) ? (
+                  {cart.find((cartItem) => cartItem.id === item.id) ? (
                     <div className="text-addedToCart playstation">
                       <span className="icon-addedToCart">
                         <IoBagCheckOutline />
