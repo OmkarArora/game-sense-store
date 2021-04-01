@@ -8,6 +8,8 @@ import { IoBagCheckOutline } from "react-icons/io5";
 import "./playstationPage.css";
 
 export const PlaystationPage = () => {
+  const yellowColor = "rgb(255, 149, 41)";
+
   const { products, ratingFilter, priceFilter, dispatch } = usePlaystation();
   const { cartState, cartDispatch } = useCart();
   
@@ -43,7 +45,7 @@ export const PlaystationPage = () => {
                       <span className="custom-container-rating">
                         <StarRating
                           rating={item.rating}
-                          color={"rgb(255, 216, 20)"}
+                          color={yellowColor}
                         />
                       </span>
                       <div

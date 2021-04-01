@@ -10,7 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --width-filterBox: 190px;
+  --width-filterBox: 220px;
   --padding-page: 2rem;
 
   /* z indices */

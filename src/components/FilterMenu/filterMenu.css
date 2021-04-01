@@ -2,6 +2,7 @@
   width: var(--width-filterBox);
   position: fixed;
   left: var(--padding-page);
+  padding-right: 1rem;
   border-right: 1px solid black;
   height: 100%;
   margin-top: 1rem;
@@ -15,4 +16,33 @@
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+}
+
+.filter-heading {
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-filter {
+  cursor: pointer;
+}
+.price-filter.active {
+  font-weight: 600;
+}
+
+.filter-clear {
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.rating-filter {
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.rating-filter.active {
+  font-weight: 600;
 }
