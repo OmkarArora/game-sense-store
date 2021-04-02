@@ -5,13 +5,14 @@ import { useWindowSize } from "../../hooks/useWindowSize";
 import { useNavPhone } from "../contexts/navPhoneContext";
 import { useWishlist } from "../contexts/Wishlist/wishlistContext";
 import "./cart.css";
+import EmptyCart from "../../images/empty_cart.svg";
 
 export const Cart = () => {
   const { cart, cartDispatch } = useCart();
   const { wishlistDispatch } = useWishlist();
 
   const screenWidth = useWindowSize().width;
-  const { navPhoneVisible  } = useNavPhone();
+  const { navPhoneVisible } = useNavPhone();
 
   const getTotalCartQuantity = () =>
     cart.reduce((acc, curr) => acc + curr.quantity, 0);
@@ -20,74 +21,88 @@ export const Cart = () => {
 
   return (
     <div className="container-app">
-      {screenWidth<768 && navPhoneVisible && <NavPhone active=""/>}
+      {screenWidth < 768 && navPhoneVisible && <NavPhone active="" />}
       <Header active="" />
-      <div className="page-heading">Cart</div>
-      <div className="container-cart">
-        <div className="items-list">
-          {cart.map((item) => (
-            <div className="cart-card">
-              <img
-                className="cart-image"
-                src={item.coverImage}
-                alt={item.name}
-              />
-              <div className="cart-item-details">
-                <div className="details">
-                  <div>
-                    <div className="name">{item.name}</div>
-                    <div className="subheading">
-                      <span>Platforms:</span> {item.platforms.join(", ")}
+      {cart.length !== 0 && (
+        <>
+          <div className="page-heading">Cart</div>
+          <div className="container-cart">
+            <div className="items-list">
+              {cart.map((item) => (
+                <div className="cart-card">
+                  <img
+                    className="cart-image"
+                    src={item.coverImage}
+                    alt={item.name}
+                  />
+                  <div className="cart-item-details">
+                    <div className="details">
+                      <div>
+                        <div className="name">{item.name}</div>
+                        <div className="subheading">
+                          <span>Platforms:</span> {item.platforms.join(", ")}
+                        </div>
+                      </div>
+                      <div className="cart-actions">
+                        {item.category === "peripheral" && (
+                          <span>quantity |</span>
+                        )}
+                        <span
+                          onClick={() =>
+                            cartDispatch({
+                              type: "REMOVE_FROM_CART",
+                              payload: item.id,
+                            })
+                          }
+                        >
+                          Delete
+                        </span>{" "}
+                        |{" "}
+                        <span
+                          onClick={() => {
+                            wishlistDispatch({
+                              type: "ADD_TO_WISHLIST",
+                              payload: item,
+                            });
+                            return cartDispatch({
+                              type: "REMOVE_FROM_CART",
+                              payload: item.id,
+                            });
+                          }}
+                        >
+                          Save for later
+                        </span>
+                      </div>
+                    </div>
+                    <div className="pricing">
+                      {item.currency} {item.price * item.quantity}
                     </div>
                   </div>
-                  <div className="cart-actions">
-                    {item.category === "peripheral" && <span>quantity |</span>}
-                    <span
-                      onClick={() =>
-                        cartDispatch({
-                          type: "REMOVE_FROM_CART",
-                          payload: item.id,
-                        })
-                      }
-                    >
-                      Delete
-                    </span>{" "}
-                    |{" "}
-                    <span
-                      onClick={() => {
-                        wishlistDispatch({
-                          type: "ADD_TO_WISHLIST",
-                          payload: item,
-                        });
-                        return cartDispatch({
-                          type: "REMOVE_FROM_CART",
-                          payload: item.id,
-                        });
-                      }}
-                    >
-                      Save for later
-                    </span>
-                  </div>
                 </div>
-                <div className="pricing">
-                  {item.currency} {item.price * item.quantity}
-                </div>
+              ))}
+            </div>
+            <div className="container-subtotal">
+              <span className="heading-subtotal">
+                Subtotal({getTotalCartQuantity()} items)
+              </span>
+              <span>
+                {cart[0] && cart[0].currency} {getTotalCartPrice()}
+              </span>
+
+              <div className="custom-container-btn-action cart">
+                <button>CHECKOUT</button>
               </div>
             </div>
-          ))}
-        </div>
-        <div className="container-subtotal">
-
-          <span className="heading-subtotal">Subtotal({getTotalCartQuantity()} items)</span>
-          <span>
-            {cart[0] && cart[0].currency} {getTotalCartPrice()}
-          </span>
-
-          <div className="custom-container-btn-action cart">
-            <button>CHECKOUT</button>
           </div>
+        </>
+      )}
+      {cart.length === 0 && (
+        <div className="disclaimer-empty">
+          <img src={EmptyCart} alt="empty cart" />
+          <div>Your cart is empty, add some products now!</div>
         </div>
-      </div>
+      )}
     </div>
+
   );
 };

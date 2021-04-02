@@ -1,4 +1,4 @@
-import { Badge } from "shoto-ui";
+import { Badge, Avatar } from "shoto-ui";
 import { Link } from "react-router-dom";
 import { Navbar } from "../Navbar/Navbar";
 import logo from "../../images/sword.svg";
@@ -43,7 +43,9 @@ export const Header = ({ active }) => {
             </Badge>
           )}
         </Link>
-        <div>USER AVATAR</div>
+        <div>
+        <Avatar alt="tanjiro" src="https://64.media.tumblr.com/453021cb82f2d79140d92f617c01d98c/4c4becca07962d76-f7/s640x960/f3972fcb52c4f816c9892c0802dec002cb36b842.jpg" />
+        </div>
       </div>
     </header>
   );
