@@ -11,6 +11,7 @@ import { useNavPhone } from "../contexts/navPhoneContext";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IoBagCheckOutline } from "react-icons/io5";
 import "./playstationPage.css";
+import { FilterPhone } from "../FilterPhone/FilterPhone";
 
 export const PlaystationPage = () => {
   const yellowColor = "rgb(255, 149, 41)";
@@ -43,11 +44,19 @@ export const PlaystationPage = () => {
       )}
       <Header active="playstation" />
       <main className="main-container-products">
-        <FilterMenu
-          dispatch={(args) => dispatch(args)}
-          ratingFilter={ratingFilter}
-          priceFilter={priceFilter}
-        />
+        {screenWidth < 768 ? (
+          <FilterPhone
+            dispatch={(args) => dispatch(args)}
+            ratingFilter={ratingFilter}
+            priceFilter={priceFilter}
+          />
+        ) : (
+          <FilterMenu
+            dispatch={(args) => dispatch(args)}
+            ratingFilter={ratingFilter}
+            priceFilter={priceFilter}
+          />
+        )}
         <div className="games-list product-grid">
           {filteredData.map((item) => {
             return (

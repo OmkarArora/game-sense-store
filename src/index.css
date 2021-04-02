@@ -22,7 +22,8 @@ body {
 
   /* z indices */
   --z-header: 2;
-  --z-navPhone: 3;
+  --z-filterPhone: 3;
+  --z-navPhone: 4;
 
   /* colors */
   --color-yellow: rgb(255, 216, 20);
@@ -38,6 +39,8 @@ body {
   --banner-color-2: #4a1aa1;
   --banner-color-3: #6b3aba;
   --banner-color-4: #6957ab;
+
+  --box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .page-heading {
@@ -162,4 +165,10 @@ body {
 .disclaimer-empty div {
   font-size: 1.2rem;
   text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .main-container-products .games-list {
+    margin-left: 1rem;
+  }
 }

@@ -10,6 +10,7 @@
   background-color: white;
   z-index: var(--z-header);
   padding: 0.5rem 1rem;
+  box-shadow: var(--box-shadow);
 }
 
 .btn-mobile-nav {

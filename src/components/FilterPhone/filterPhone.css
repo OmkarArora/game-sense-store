@@ -1,0 +1,36 @@
+.container-filterPhone {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: var(--z-filterPhone);
+  background-color: white;
+  box-shadow: var(--box-shadow);
+}
+
+.container-filterPhone .heading {
+  font-weight: 500;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.container-filterPhone .icon-arrow {
+  font-size: 1.5rem;
+}
+
+.container-filterPhone .container-filterMenu {
+  position: static;
+}
+
+.container-filterPhone .container-filterMenu {
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  border-right: none;
+  padding: 1rem;
+  font-size: 1.3rem;
+  margin-top: 0;
+}
