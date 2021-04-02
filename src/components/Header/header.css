@@ -1,13 +1,12 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: var(--height-header);
   position: fixed;
   top: 0;
   left: var(--padding-page);
   right: var(--padding-page);
-
-  border: 1px solid yellow;
   background-color: white;
   z-index: var(--z-header);
 }
@@ -27,4 +26,17 @@
 .container-user-details {
   display: flex;
   gap: 1rem;
+}
+
+.container-user-details .shoto-container-badge .shoto-badge {
+  border-radius: 50%;
+  padding: 0.2rem 0.5rem;
+}
+
+.container-cart-icon {
+  padding: 0.3rem 0.5rem;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  color: var(--banner-color-3);
+  box-shadow: var(--color-primary) 0px 5px 15px;
 }

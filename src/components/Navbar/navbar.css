@@ -1,5 +1,4 @@
 .navbar {
-  border: 1px solid black;
   width: max-content;
 }
 
@@ -14,4 +13,26 @@
 
 .navbar ul li {
   display: block;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: black;
+}
+
+.link.active {
+  position: relative;
+  font-weight: 500;
+}
+
+.link-active-circle {
+  height: 5px;
+  width: 5px;
+  background-color: var(--banner-color-3);
+  border-radius: 50%;
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+
+  right: 50%;
 }

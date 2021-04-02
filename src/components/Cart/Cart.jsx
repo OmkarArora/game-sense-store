@@ -71,7 +71,7 @@ export const Cart = () => {
 
           <span className="heading-subtotal">Subtotal({getTotalCartQuantity()} items)</span>
           <span>
-            {cart[0].currency} {getTotalCartPrice()}
+            {cart[0] && cart[0].currency} {getTotalCartPrice()}
           </span>
 
           <div className="custom-container-btn-action cart">

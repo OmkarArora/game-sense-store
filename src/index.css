@@ -24,6 +24,13 @@ body {
   --color-playstation-dark: rgba(0, 111, 205, 1);
   --color-xbox: rgba(16, 124, 16, 0.9);
   --color-xbox-dark: rgba(16, 124, 16, 1);
+  --color-primary: #63c8c5;
+
+  /* banner */
+  --banner-color-1: #34108b;
+  --banner-color-2: #4a1aa1;
+  --banner-color-3: #6b3aba;
+  --banner-color-4: #6957ab;
 }
 
 .page-heading {
