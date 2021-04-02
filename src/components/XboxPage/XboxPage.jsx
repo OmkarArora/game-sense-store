@@ -112,7 +112,7 @@ export const XboxPage = () => {
                     <div className="custom-container-btn-action xbox">
                       <button
                         onClick={() =>
-                          cartDispatch({ type: "ADD_TO_CART", payload: item })
+                          cartDispatch({ type: "ADD_TO_CART", payload: {...item, quantity: 1} })
                         }
                       >
                         Add to cart

@@ -74,7 +74,7 @@ export const Wishlist = () => {
                 <div className="custom-container-btn-action">
                   <button
                     onClick={() =>
-                      cartDispatch({ type: "ADD_TO_CART", payload: item })
+                      cartDispatch({ type: "ADD_TO_CART", payload: {...item, quantity: 1} })
                     }
                   >
                     Move to cart

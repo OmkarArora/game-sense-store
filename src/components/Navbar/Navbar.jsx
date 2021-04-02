@@ -29,12 +29,14 @@ export const Navbar = ({ active }) => {
             Xbox &amp; Windows
           </Link>
         </li>
-        <li><Link
+        <li>
+          <Link
             to="/wishlist"
             className={active === "wishlist" ? "link active" : "link"}
           >
             Wishlist
-          </Link></li>
+          </Link>
+        </li>
       </ul>
     </nav>
   );

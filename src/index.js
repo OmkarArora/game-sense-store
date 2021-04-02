@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Home, PlaystationPage, PlaystationProvider, Wishlist, WishlistProvider, XboxPage } from "./components";
+import { Cart, Home, PlaystationPage, PlaystationProvider, Wishlist, WishlistProvider, XboxPage } from "./components";
 import { CartProvider } from "./components";
 import { XboxProvider } from "./components/contexts/Xbox/xboxContext";
 import "./index.css";
@@ -24,6 +24,9 @@ ReactDOM.render(
           </Route>
           <Route path="/wishlist">
               <Wishlist />
+          </Route>
+          <Route path="/cart">
+              <Cart />
           </Route>
           <Route path="/">
             <Home />

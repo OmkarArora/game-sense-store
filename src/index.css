@@ -12,6 +12,7 @@ body {
 
   --width-filterBox: 220px;
   --padding-page: 2rem;
+  --margin-header: 2rem;
 
   /* z indices */
   --z-header: 2;
@@ -23,6 +24,13 @@ body {
   --color-playstation-dark: rgba(0, 111, 205, 1);
   --color-xbox: rgba(16, 124, 16, 0.9);
   --color-xbox-dark: rgba(16, 124, 16, 1);
+}
+
+.page-heading {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-top: var(--margin-header);
+  padding: 0 0 0.5rem 0;
 }
 
 .text-addedToCart {
@@ -114,7 +122,7 @@ body {
 }
 
 .main-container-products {
-  margin-top: 2rem;
+  margin-top: var(--margin-header);
 }
 
 .main-container-products .games-list {
