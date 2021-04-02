@@ -1,9 +1,13 @@
+import { useEffect } from "react";
 import { CardCustom, CardContent, CardImage, Tag, StarRating } from "shoto-ui";
 import { FilterMenu } from "../FilterMenu/FilterMenu";
 import { Header } from "../Header/Header";
+import { NavPhone } from "../NavPhone/NavPhone";
 import { usePlaystation } from "../contexts/Playstation/playstationContext";
 import { useCart } from "../contexts/Cart/cartContext";
 import { useWishlist } from "../contexts/Wishlist/wishlistContext";
+import { useWindowSize } from "../../hooks/useWindowSize";
+import { useNavPhone } from "../contexts/navPhoneContext";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IoBagCheckOutline } from "react-icons/io5";
 import "./playstationPage.css";
@@ -15,6 +19,11 @@ export const PlaystationPage = () => {
   const { products, ratingFilter, priceFilter, dispatch } = usePlaystation();
   const { cart, cartDispatch } = useCart();
   const { wishlist, wishlistDispatch } = useWishlist();
+
+  const screenWidth = useWindowSize().width;
+  const { navPhoneVisible, setNavPhoneVisibility } = useNavPhone();
+
+  useEffect(() => setNavPhoneVisibility(false), [setNavPhoneVisibility]);
 
   const filterData = (products, price, rating) => {
     let data = [...products];
@@ -29,6 +38,9 @@ export const PlaystationPage = () => {
 
   return (
     <div className="container-app">
+      {screenWidth < 768 && navPhoneVisible && (
+        <NavPhone active="playstation" />
+      )}
       <Header active="playstation" />
       <main className="main-container-products">
         <FilterMenu
@@ -112,7 +124,10 @@ export const PlaystationPage = () => {
                     <div className="custom-container-btn-action playstation">
                       <button
                         onClick={() =>
-                          cartDispatch({ type: "ADD_TO_CART", payload: {...item, quantity: 1} })
+                          cartDispatch({
+                            type: "ADD_TO_CART",
+                            payload: { ...item, quantity: 1 },
+                          })
                         }
                       >
                         Add to cart

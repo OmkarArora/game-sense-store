@@ -12,3 +12,4 @@ export {
   PlaystationProvider,
   usePlaystation,
 } from "./contexts/Playstation/playstationContext";
+export { useNavPhone, NavPhoneProvider } from "./contexts/navPhoneContext";

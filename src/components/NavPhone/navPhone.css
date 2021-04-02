@@ -1,0 +1,40 @@
+.navphone-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-navPhone);
+  background-color: var(--banner-color-3);
+  color: white;
+}
+
+.btn-close {
+  font-size: 2.5rem;
+  position: absolute;
+  right: 2rem;
+  top: 1rem;
+}
+
+.navphone {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.navphone .navbar ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.5rem;
+  gap: 1.2rem;
+}
+
+.navphone .navbar ul .link.active {
+  font-weight: 500;
+}
+
+.navphone .navbar a {
+  color: white;
+}

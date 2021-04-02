@@ -3,18 +3,32 @@ import { Link } from "react-router-dom";
 import { Navbar } from "../Navbar/Navbar";
 import logo from "../../images/sword.svg";
 import { FaShoppingCart } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { useCart } from "../contexts/Cart/cartContext";
+import { useWindowSize } from "../../hooks/useWindowSize";
+import { useNavPhone } from "../contexts/navPhoneContext";
 import "./header.css";
 
 export const Header = ({ active }) => {
   const { cart } = useCart();
+  const screenWidth = useWindowSize().width;
+  const { setNavPhoneVisibility } = useNavPhone();
   return (
     <header className="header">
-      <div className="container-logo">
-        <img src={logo} alt="logo" />
-        Game Sense
-      </div>
-      <Navbar active={active} />
+      {screenWidth < 768 ? (
+        <span className="btn-mobile-nav">
+          <GiHamburgerMenu onClick={() => setNavPhoneVisibility((prev) => !prev)} />
+        </span>
+      ) : (
+        <>
+          {" "}
+          <div className="container-logo">
+            <img src={logo} alt="logo" />
+            Game Sense
+          </div>
+          <Navbar active={active} />
+        </>
+      )}
       <div className="container-user-details">
         <Link to="/cart">
           {cart.length === 0 ? (

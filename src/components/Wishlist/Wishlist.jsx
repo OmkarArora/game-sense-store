@@ -1,7 +1,11 @@
+import { useEffect } from "react";
 import { CardCustom, CardContent, CardImage, Tag, StarRating } from "shoto-ui";
 import { Header } from "../Header/Header";
+import { NavPhone } from "../NavPhone/NavPhone";
 import { useWishlist } from "../contexts/Wishlist/wishlistContext";
 import { useCart } from "../contexts/Cart/cartContext";
+import { useWindowSize } from "../../hooks/useWindowSize";
+import { useNavPhone } from "../contexts/navPhoneContext";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import "./wishlist.css";
@@ -12,8 +16,14 @@ export const Wishlist = () => {
   const { cart, cartDispatch } = useCart();
   const { wishlist, wishlistDispatch } = useWishlist();
 
+  const screenWidth = useWindowSize().width;
+  const { navPhoneVisible, setNavPhoneVisibility } = useNavPhone();
+
+  useEffect(() => setNavPhoneVisibility(false), [setNavPhoneVisibility]);
+
   return (
     <div className="container-app">
+      {screenWidth < 768 && navPhoneVisible && <NavPhone active="wishlist" />}
       <Header active="wishlist" />
       <main className="wishlist main-container-products games-list product-grid">
         {wishlist.map((item) => (
@@ -74,7 +84,10 @@ export const Wishlist = () => {
                 <div className="custom-container-btn-action">
                   <button
                     onClick={() =>
-                      cartDispatch({ type: "ADD_TO_CART", payload: {...item, quantity: 1} })
+                      cartDispatch({
+                        type: "ADD_TO_CART",
+                        payload: { ...item, quantity: 1 },
+                      })
                     }
                   >
                     Move to cart

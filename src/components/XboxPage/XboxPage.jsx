@@ -1,9 +1,13 @@
+import { useEffect } from "react";
 import { CardCustom, CardContent, CardImage, Tag, StarRating } from "shoto-ui";
 import { FilterMenu } from "../FilterMenu/FilterMenu";
+import { NavPhone } from "../NavPhone/NavPhone";
 import { Header } from "../Header/Header";
 import { useXbox } from "../contexts//Xbox/xboxContext";
 import { useCart } from "../contexts/Cart/cartContext";
 import { useWishlist } from "../contexts/Wishlist/wishlistContext";
+import { useWindowSize } from "../../hooks/useWindowSize";
+import { useNavPhone } from "../contexts/navPhoneContext";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IoBagCheckOutline } from "react-icons/io5";
 import "./xboxPage.css";
@@ -15,6 +19,11 @@ export const XboxPage = () => {
   const { products, ratingFilter, priceFilter, dispatch } = useXbox();
   const { cart, cartDispatch } = useCart();
   const { wishlist, wishlistDispatch } = useWishlist();
+
+  const screenWidth = useWindowSize().width;
+  const { navPhoneVisible, setNavPhoneVisibility } = useNavPhone();
+
+  useEffect(() => setNavPhoneVisibility(false), [setNavPhoneVisibility]);
 
   const filterData = (products, price, rating) => {
     let data = [...products];
@@ -29,6 +38,7 @@ export const XboxPage = () => {
 
   return (
     <div className="container-app">
+      {screenWidth < 768 && navPhoneVisible && <NavPhone active="xbox" />}
       <Header active="xbox" />
       <main className="main-container-products">
         <FilterMenu
@@ -112,7 +122,10 @@ export const XboxPage = () => {
                     <div className="custom-container-btn-action xbox">
                       <button
                         onClick={() =>
-                          cartDispatch({ type: "ADD_TO_CART", payload: {...item, quantity: 1} })
+                          cartDispatch({
+                            type: "ADD_TO_CART",
+                            payload: { ...item, quantity: 1 },
+                          })
                         }
                       >
                         Add to cart

@@ -5,10 +5,15 @@
   height: var(--height-header);
   position: fixed;
   top: 0;
-  left: var(--padding-page);
-  right: var(--padding-page);
+  left: 0;
+  right: 0;
   background-color: white;
   z-index: var(--z-header);
+  padding: 0 1rem;
+}
+
+.btn-mobile-nav {
+  font-size: 1.6rem;
 }
 
 .container-logo {

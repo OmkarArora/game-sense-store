@@ -1,17 +1,26 @@
 import { Header } from "../Header/Header";
+import { NavPhone } from "../NavPhone/NavPhone";
 import { useCart } from "../contexts/Cart/cartContext";
-import "./cart.css";
+import { useWindowSize } from "../../hooks/useWindowSize";
+import { useNavPhone } from "../contexts/navPhoneContext";
 import { useWishlist } from "../contexts/Wishlist/wishlistContext";
+import "./cart.css";
 
 export const Cart = () => {
   const { cart, cartDispatch } = useCart();
   const { wishlistDispatch } = useWishlist();
+
+  const screenWidth = useWindowSize().width;
+  const { navPhoneVisible  } = useNavPhone();
+
   const getTotalCartQuantity = () =>
     cart.reduce((acc, curr) => acc + curr.quantity, 0);
   const getTotalCartPrice = () =>
     cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+
   return (
     <div className="container-app">
+      {screenWidth<768 && navPhoneVisible && <NavPhone active=""/>}
       <Header active="" />
       <div className="page-heading">Cart</div>
       <div className="container-cart">

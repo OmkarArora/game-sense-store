@@ -1,17 +1,22 @@
 import { useEffect } from "react";
 import { Banner } from "../Banner/Banner";
 import { Carousel } from "../Carousel/Carousel";
-import { useCart } from "../contexts/Cart/cartContext";
 import { ExploreGames } from "../ExploreGames/ExploreGames";
 import { Header } from "../Header/Header";
+import { NavPhone } from "../NavPhone/NavPhone";
+import { useWindowSize } from "../../hooks/useWindowSize";
+import { useNavPhone } from "../contexts/navPhoneContext";
 import "./home.css";
 
 export const Home = () => {
-  const { cartState, cartDispatch } = useCart();
-  console.log(cartState);
-  useEffect(() => cartDispatch(), [cartDispatch]);
+  const screenWidth = useWindowSize().width;
+  const { navPhoneVisible, setNavPhoneVisibility } = useNavPhone();
+
+  useEffect(() => setNavPhoneVisibility(false), [setNavPhoneVisibility]);
+
   return (
     <div className="container-app">
+      {screenWidth < 768 && navPhoneVisible && <NavPhone active="discover" />}
       <Header active="discover" />
       <div className="container-banner">
         <Banner />
