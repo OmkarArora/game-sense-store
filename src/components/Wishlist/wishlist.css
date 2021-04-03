@@ -1,3 +1,7 @@
+.wishlist.main-container-products {
+  margin-top: calc(var(--height-header) + 1rem);
+}
+
 .text-addedToCart.wishlist {
   color: var(--color-yellow-dark);
 }
