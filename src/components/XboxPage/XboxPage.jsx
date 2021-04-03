@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { CardCustom, CardContent, CardImage, Tag, StarRating } from "shoto-ui";
 import { FilterMenu } from "../FilterMenu/FilterMenu";
+import { FilterPhone } from "../FilterPhone/FilterPhone";
 import { NavPhone } from "../NavPhone/NavPhone";
 import { Header } from "../Header/Header";
 import { useXbox } from "../contexts//Xbox/xboxContext";
@@ -41,11 +42,19 @@ export const XboxPage = () => {
       {screenWidth < 768 && navPhoneVisible && <NavPhone active="xbox" />}
       <Header active="xbox" />
       <main className="main-container-products">
-        <FilterMenu
-          dispatch={(args) => dispatch(args)}
-          ratingFilter={ratingFilter}
-          priceFilter={priceFilter}
-        />
+      {screenWidth < 768 ? (
+          <FilterPhone
+            dispatch={(args) => dispatch(args)}
+            ratingFilter={ratingFilter}
+            priceFilter={priceFilter}
+          />
+        ) : (
+          <FilterMenu
+            dispatch={(args) => dispatch(args)}
+            ratingFilter={ratingFilter}
+            priceFilter={priceFilter}
+          />
+        )}
         <div className="games-list product-grid">
           {filteredData.map((item) => {
             return (

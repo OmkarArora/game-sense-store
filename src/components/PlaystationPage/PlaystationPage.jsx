@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { CardCustom, CardContent, CardImage, Tag, StarRating } from "shoto-ui";
 import { FilterMenu } from "../FilterMenu/FilterMenu";
+import { FilterPhone } from "../FilterPhone/FilterPhone";
 import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
 import { usePlaystation } from "../contexts/Playstation/playstationContext";
@@ -11,7 +12,6 @@ import { useNavPhone } from "../contexts/navPhoneContext";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IoBagCheckOutline } from "react-icons/io5";
 import "./playstationPage.css";
-import { FilterPhone } from "../FilterPhone/FilterPhone";
 
 export const PlaystationPage = () => {
   const yellowColor = "rgb(255, 149, 41)";

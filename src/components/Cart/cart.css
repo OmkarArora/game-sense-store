@@ -95,3 +95,21 @@
 .custom-container-btn-action.cart {
   margin-top: 2rem;
 }
+
+@media screen and (max-width: 768px) {
+  .container-cart {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .cart-card .cart-image {
+    max-width: 200px;
+    height: auto;
+  }
+  .cart-card .cart-item-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}

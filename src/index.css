@@ -46,7 +46,7 @@ body {
 .page-heading {
   font-size: 1.8rem;
   font-weight: 600;
-  margin-top: var(--height-header);
+  margin-top: calc(var(--height-header) + 1rem);
   padding: 0 0 0.5rem 0;
 }
 
@@ -169,6 +169,22 @@ body {
 
 @media screen and (max-width: 768px) {
   .main-container-products .games-list {
-    margin-left: 1rem;
+    margin-left: 0;
+    padding-bottom: 5rem;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-gap: 1.5rem;
+  }
+
+  .product-grid .container-cardCustom {
+    max-width: 100%;
+  }
+
+  .custom-container-btn-action button {
+    padding: 1rem;
+    border-radius: 2rem;
   }
 }
