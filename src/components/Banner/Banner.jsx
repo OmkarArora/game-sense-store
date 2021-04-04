@@ -9,6 +9,8 @@ export const Banner = () => {
 				<div className="heading">Play Has No Limit</div>
 				<small>Get the new PS5 now!</small>
 			</div>
+			<div class="circle1"></div>
+    		<div class="circle2"></div>
 		</div>
 	)
 }

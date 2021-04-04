@@ -22,6 +22,7 @@ body {
 
   /* z indices */
   --z-header: 2;
+  --z-glass-circle: 1;
   --z-filterPhone: 3;
   --z-navPhone: 4;
 

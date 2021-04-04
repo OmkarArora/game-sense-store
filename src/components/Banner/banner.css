@@ -14,6 +14,8 @@
   color: white;
   padding: 2rem 1rem;
   margin: 1rem 0;
+  position: relative;
+  overflow: hidden;
 }
 
 .banner img {
@@ -27,7 +29,62 @@
   font-weight: 600;
 }
 
+.circle1,
+.circle2 {
+  background: white;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.3)
+  );
+  height: 30rem;
+  width: 30rem;
+  position: absolute;
+  border-radius: 50%;
+  backdrop-filter: blur(0.1rem);
+  z-index: var(--z-glass-circle);
+}
+
+.circle1 {
+  left: -2rem;
+  bottom: 3rem;
+}
+
+.circle2 {
+  right: -2rem;
+  top: 3rem;
+  background: linear-gradient(
+    to left top,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+@media screen and (max-width: 1000px) {
+  .circle1,
+  .circle2 {
+    height: 22rem;
+    width: 22rem;
+  }
+
+  .circle1 {
+    left: -3rem;
+    bottom: 5rem;
+  }
+
+  .circle2 {
+    right: -4rem;
+    top: 6rem;
+  }
+}
+
 @media screen and (max-width: 768px) {
+  .circle1,
+  .circle2 {
+    height: 16rem;
+    width: 16rem;
+  }
+
   .banner img {
     width: 300px;
   }
@@ -42,5 +99,21 @@
 @media screen and (max-width: 400px) {
   .banner img {
     width: 150px;
+  }
+
+  .circle1,
+  .circle2 {
+    height: 10rem;
+    width: 10rem;
+  }
+
+  .circle1 {
+    left: -3rem;
+    bottom: 6rem;
+  }
+
+  .circle2 {
+    right: -4rem;
+    top: 7rem;
   }
 }
