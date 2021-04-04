@@ -6,6 +6,7 @@ import { useWishlist } from "../contexts/Wishlist/wishlistContext";
 import { useCart } from "../contexts/Cart/cartContext";
 import { useWindowSize } from "../../hooks/useWindowSize";
 import { useNavPhone } from "../contexts/navPhoneContext";
+import { useAlert } from "../contexts/showAlert";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import "./wishlist.css";
@@ -19,6 +20,8 @@ export const Wishlist = () => {
 
   const screenWidth = useWindowSize().width;
   const { navPhoneVisible, setNavPhoneVisibility } = useNavPhone();
+
+  const { setSnackbar } = useAlert();
 
   useEffect(() => setNavPhoneVisibility(false), [setNavPhoneVisibility]);
 
@@ -87,11 +90,13 @@ export const Wishlist = () => {
                 ) : (
                   <div className="custom-container-btn-action">
                     <button
-                      onClick={() =>
+                      onClick={() =>{
                         cartDispatch({
                           type: "ADD_TO_CART",
                           payload: { ...item, quantity: 1 },
-                        })
+                        });
+                        return setSnackbar({openStatus: true, type: "info", data: "Moved to cart"})
+                      }
                       }
                     >
                       Move to cart

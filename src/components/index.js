@@ -13,3 +13,4 @@ export {
   usePlaystation,
 } from "./contexts/Playstation/playstationContext";
 export { useNavPhone, NavPhoneProvider } from "./contexts/navPhoneContext";
+export { useAlert, AlertProvider } from "./contexts/showAlert";

@@ -9,6 +9,7 @@ import { useCart } from "../contexts/Cart/cartContext";
 import { useWishlist } from "../contexts/Wishlist/wishlistContext";
 import { useWindowSize } from "../../hooks/useWindowSize";
 import { useNavPhone } from "../contexts/navPhoneContext";
+import { useAlert } from "../contexts/showAlert";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IoBagCheckOutline } from "react-icons/io5";
 import "./playstationPage.css";
@@ -23,6 +24,8 @@ export const PlaystationPage = () => {
 
   const screenWidth = useWindowSize().width;
   const { navPhoneVisible, setNavPhoneVisibility } = useNavPhone();
+
+  const { setSnackbar } = useAlert();
 
   useEffect(() => setNavPhoneVisibility(false), [setNavPhoneVisibility]);
 
@@ -137,12 +140,17 @@ export const PlaystationPage = () => {
                       ) : (
                         <div className="custom-container-btn-action playstation">
                           <button
-                            onClick={() =>
+                            onClick={() => {
                               cartDispatch({
                                 type: "ADD_TO_CART",
                                 payload: { ...item, quantity: 1 },
-                              })
-                            }
+                              });
+                              return setSnackbar({
+                                openStatus: true,
+                                type: "success",
+                                data: "Added to cart",
+                              });
+                            }}
                           >
                             Add to cart
                           </button>
