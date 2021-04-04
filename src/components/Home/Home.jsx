@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Banner } from "../Banner/Banner";
 import { Carousel } from "../Carousel/Carousel";
-// import { ExploreGames } from "../ExploreGames/ExploreGames";
 import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
 import { useWindowSize } from "../../hooks/useWindowSize";
@@ -23,6 +22,7 @@ export const Home = () => {
       </div>
       <h3>New Releases</h3>
       <Carousel />
+      {/* TODO: To be added in future version */}
       {/* <h3>Explore Top Games</h3>
       <ExploreGames /> */}
     </div>
