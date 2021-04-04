@@ -4,3 +4,17 @@
   grid-gap: 1rem;
   grid-auto-rows: 250px;
 }
+
+@media screen and (max-width: 768px) {
+  .container-carousel {
+    display: grid;
+    grid-template-columns: minmax(300px, 1fr);
+    grid-gap: 1rem;
+    grid-auto-rows: auto;
+  }
+  .container-carousel .shoto-card-hero .overlay {
+    width: 100%;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+  }
+}

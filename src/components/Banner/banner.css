@@ -1,6 +1,9 @@
 .banner {
   border-radius: 1rem;
   display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(
     to right,
     var(--banner-color-1) 0%,
@@ -9,12 +12,35 @@
     var(--banner-color-4) 95%
   );
   color: white;
-  padding: 0.5rem 1rem 0.5rem 1rem;
+  padding: 2rem 1rem;
   margin: 1rem 0;
 }
 
 .banner img {
   display: block;
-  width: 320px;
+  width: 380px;
   height: auto;
+}
+
+.banner .heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+  .banner img {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .banner img {
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .banner img {
+    width: 150px;
+  }
 }

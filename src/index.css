@@ -67,6 +67,7 @@ body {
 .container-app {
   padding: 0 2rem 2rem 2rem;
   height: 100%;
+  overflow-x: hidden;
 }
 
 .product-grid {

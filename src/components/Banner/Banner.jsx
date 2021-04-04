@@ -6,7 +6,8 @@ export const Banner = () => {
 		<div className="banner">
 			<img src={ps5Image} alt="ps5 controller"/>
 			<div className="container-banner-info">
-				<div className="heading">Play Has No Limit<sup>TM</sup></div>
+				<div className="heading">Play Has No Limit</div>
+				<small>Get the new PS5 now!</small>
 			</div>
 		</div>
 	)
