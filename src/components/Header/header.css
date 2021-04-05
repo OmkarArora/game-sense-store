@@ -44,5 +44,5 @@
   border-radius: 50%;
   font-size: 1.3rem;
   color: var(--banner-color-3);
-  box-shadow: var(--color-primary) 0px 5px 15px;
+  box-shadow: var(--color-primary) 0px 2px 8px;
 }
