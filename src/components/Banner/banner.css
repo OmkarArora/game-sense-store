@@ -1,4 +1,4 @@
-.banner {
+.new-product {
   border-radius: 1rem;
   display: flex;
   gap: 1rem;
@@ -18,13 +18,13 @@
   overflow: hidden;
 }
 
-.banner img {
+.new-product img {
   display: block;
   width: 380px;
   height: auto;
 }
 
-.banner .heading {
+.new-product .heading {
   font-size: 1.5rem;
   font-weight: 600;
 }
@@ -85,19 +85,19 @@
     width: 16rem;
   }
 
-  .banner img {
+  .new-product img {
     width: 300px;
   }
 }
 
 @media screen and (max-width: 560px) {
-  .banner img {
+  .new-product img {
     width: 250px;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .banner img {
+  .new-product img {
     width: 150px;
   }
 

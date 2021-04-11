@@ -17,7 +17,7 @@ export const Home = () => {
     <div className="container-app">
       {screenWidth < 768 && navPhoneVisible && <NavPhone active="discover" />}
       <Header active="discover" />
-      <div className="container-banner">
+      <div className="container-new-product">
         <Banner />
       </div>
       <h3>New Releases</h3>
