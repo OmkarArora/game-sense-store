@@ -23,27 +23,27 @@ ReactDOM.render(
         <CartProvider>
           <WishlistProvider>
             <AlertProvider>
-              <Switch>
-                <Route path="/playstation">
-                  <PlaystationProvider>
-                    <PlaystationPage />
-                  </PlaystationProvider>
-                </Route>
-                <Route path="/xbox">
-                  <XboxProvider>
-                    <XboxPage />
-                  </XboxProvider>
-                </Route>
-                <Route path="/wishlist">
-                  <Wishlist />
-                </Route>
-                <Route path="/cart">
-                  <Cart />
-                </Route>
-                <Route path="/">
-                  <Home />
-                </Route>
-              </Switch>
+              <PlaystationProvider>
+                <XboxProvider>
+                  <Switch>
+                    <Route path="/playstation">
+                      <PlaystationPage />
+                    </Route>
+                    <Route path="/xbox">
+                      <XboxPage />
+                    </Route>
+                    <Route path="/wishlist">
+                      <Wishlist />
+                    </Route>
+                    <Route path="/cart">
+                      <Cart />
+                    </Route>
+                    <Route path="/">
+                      <Home />
+                    </Route>
+                  </Switch>
+                </XboxProvider>
+              </PlaystationProvider>
             </AlertProvider>
           </WishlistProvider>
         </CartProvider>

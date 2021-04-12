@@ -12,13 +12,21 @@ import { useNavPhone } from "../contexts/navPhoneContext";
 import { useAlert } from "../contexts/showAlert";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IoBagCheckOutline } from "react-icons/io5";
+import { LoadingState } from "../LoadingState/LoadingState";
+import { ErrorState } from "../ErrorState/ErrorState";
 import "./playstationPage.css";
 
 export const PlaystationPage = () => {
   const yellowColor = "rgb(255, 149, 41)";
   const blueColor = "rgb(0, 111, 205)";
 
-  const { products, ratingFilter, priceFilter, dispatch } = usePlaystation();
+  const {
+    products,
+    ratingFilter,
+    priceFilter,
+    appState,
+    dispatch,
+  } = usePlaystation();
   const { cart, cartDispatch } = useCart();
   const { wishlist, wishlistDispatch } = useWishlist();
 
@@ -60,111 +68,115 @@ export const PlaystationPage = () => {
             priceFilter={priceFilter}
           />
         )}
-        <div className="games-list">
-          <div className="product-grid">
-            {filteredData.length !== 0 &&
-              filteredData.map((item) => {
-                return (
-                  <CardCustom key={item.id}>
-                    <CardImage image={item.coverImage} title={item.name} />
-                    <CardContent>
-                      <div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <span className="custom-container-rating">
-                            <StarRating
-                              rating={item.rating}
-                              color={yellowColor}
-                            />
-                          </span>
-
-                          {wishlist.find(
-                            (wishlistItem) => wishlistItem.id === item.id
-                          ) ? (
-                            <div
-                              className="custom-container-heart"
-                              onClick={() =>
-                                wishlistDispatch({
-                                  type: "REMOVE_FROM_WISHLIST",
-                                  payload: item.id,
-                                })
-                              }
-                            >
-                              <AiFillHeart />
-                            </div>
-                          ) : (
-                            <div
-                              className="custom-container-heart"
-                              onClick={() =>
-                                wishlistDispatch({
-                                  type: "ADD_TO_WISHLIST",
-                                  payload: item,
-                                })
-                              }
-                            >
-                              <AiOutlineHeart />
-                            </div>
-                          )}
-                        </div>
-                        <div>{item.name}</div>
-                      </div>
-                      <div>
-                        <div className="custom-card-price">
-                          {item.price === 0
-                            ? "Free"
-                            : `${item.currency} ${item.price}`}
-                        </div>
-                        <div className="custom-container-tags">
-                          {item.platforms.map((_item) => (
-                            <Tag
-                              color={blueColor}
-                              borderColor={blueColor}
-                              key={`${item.id}${_item}`}
-                            >
-                              {_item}
-                            </Tag>
-                          ))}
-                        </div>
-                      </div>
-                      {cart.find((cartItem) => cartItem.id === item.id) ? (
-                        <div className="text-addedToCart playstation">
-                          <span className="icon-addedToCart">
-                            <IoBagCheckOutline />
-                          </span>
-                          Added to Cart
-                        </div>
-                      ) : (
-                        <div className="custom-container-btn-action playstation">
-                          <button
-                            onClick={() => {
-                              cartDispatch({
-                                type: "ADD_TO_CART",
-                                payload: { ...item, quantity: 1 },
-                              });
-                              return setSnackbar({
-                                openStatus: true,
-                                type: "success",
-                                data: "Added to cart",
-                              });
+        {appState === "loading" && <LoadingState />}
+        {appState === "error" && <ErrorState />}
+        {appState === "success" && (
+          <div className="games-list">
+            <div className="product-grid">
+              {filteredData.length !== 0 &&
+                filteredData.map((item) => {
+                  return (
+                    <CardCustom key={item.id}>
+                      <CardImage image={item.coverImage} title={item.name} />
+                      <CardContent>
+                        <div>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
                             }}
                           >
-                            Add to cart
-                          </button>
+                            <span className="custom-container-rating">
+                              <StarRating
+                                rating={item.rating}
+                                color={yellowColor}
+                              />
+                            </span>
+
+                            {wishlist.find(
+                              (wishlistItem) => wishlistItem.id === item.id
+                            ) ? (
+                              <div
+                                className="custom-container-heart"
+                                onClick={() =>
+                                  wishlistDispatch({
+                                    type: "REMOVE_FROM_WISHLIST",
+                                    payload: item.id,
+                                  })
+                                }
+                              >
+                                <AiFillHeart />
+                              </div>
+                            ) : (
+                              <div
+                                className="custom-container-heart"
+                                onClick={() =>
+                                  wishlistDispatch({
+                                    type: "ADD_TO_WISHLIST",
+                                    payload: item,
+                                  })
+                                }
+                              >
+                                <AiOutlineHeart />
+                              </div>
+                            )}
+                          </div>
+                          <div>{item.name}</div>
                         </div>
-                      )}
-                    </CardContent>
-                  </CardCustom>
-                );
-              })}
+                        <div>
+                          <div className="custom-card-price">
+                            {item.price === 0
+                              ? "Free"
+                              : `${item.currency} ${item.price}`}
+                          </div>
+                          <div className="custom-container-tags">
+                            {item.platforms.map((_item) => (
+                              <Tag
+                                color={blueColor}
+                                borderColor={blueColor}
+                                key={`${item.id}${_item}`}
+                              >
+                                {_item}
+                              </Tag>
+                            ))}
+                          </div>
+                        </div>
+                        {cart.find((cartItem) => cartItem.id === item.id) ? (
+                          <div className="text-addedToCart playstation">
+                            <span className="icon-addedToCart">
+                              <IoBagCheckOutline />
+                            </span>
+                            Added to Cart
+                          </div>
+                        ) : (
+                          <div className="custom-container-btn-action playstation">
+                            <button
+                              onClick={() => {
+                                cartDispatch({
+                                  type: "ADD_TO_CART",
+                                  payload: { ...item, quantity: 1 },
+                                });
+                                return setSnackbar({
+                                  openStatus: true,
+                                  type: "success",
+                                  data: "Added to cart",
+                                });
+                              }}
+                            >
+                              Add to cart
+                            </button>
+                          </div>
+                        )}
+                      </CardContent>
+                    </CardCustom>
+                  );
+                })}
+            </div>
+            {filteredData.length === 0 && (
+              <div className="disclaimer-empty">No search results</div>
+            )}
           </div>
-          {filteredData.length === 0 && (
-            <div className="disclaimer-empty">No search results</div>
-          )}
-        </div>
+        )}
       </main>
     </div>
   );
