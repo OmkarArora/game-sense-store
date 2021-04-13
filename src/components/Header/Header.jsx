@@ -4,7 +4,7 @@ import { Navbar } from "../Navbar/Navbar";
 import logo from "../../images/sword.svg";
 import { FaShoppingCart } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useCart, useNavPhone } from "../../contexts";
+import { useAuth, useCart, useNavPhone } from "../../contexts";
 import { useWindowSize } from "../../hooks";
 import "./header.css";
 
@@ -12,6 +12,7 @@ export const Header = ({ active }) => {
   const { cart } = useCart();
   const screenWidth = useWindowSize().width;
   const { setNavPhoneVisibility } = useNavPhone();
+  const { isUserLoggedIn } = useAuth();
   return (
     <header className="header">
       {screenWidth < 768 ? (
@@ -45,10 +46,15 @@ export const Header = ({ active }) => {
           )}
         </Link>
         <div>
-          <Avatar
-            alt="tanjiro"
-            src="https://64.media.tumblr.com/453021cb82f2d79140d92f617c01d98c/4c4becca07962d76-f7/s640x960/f3972fcb52c4f816c9892c0802dec002cb36b842.jpg"
-          />
+          {isUserLoggedIn && (
+            <Link to="/user-profile">
+              <Avatar
+                alt="tanjiro"
+                src="https://64.media.tumblr.com/453021cb82f2d79140d92f617c01d98c/4c4becca07962d76-f7/s640x960/f3972fcb52c4f816c9892c0802dec002cb36b842.jpg"
+              />
+            </Link>
+          )}
+          {!isUserLoggedIn && <Link to="/login">LOGIN</Link>}
         </div>
       </div>
     </header>

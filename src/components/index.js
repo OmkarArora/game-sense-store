@@ -5,3 +5,5 @@ export { Wishlist } from "./Wishlist/Wishlist";
 export { Cart } from "./Cart/Cart";
 export { LoadingState } from "./LoadingState/LoadingState";
 export { ErrorState } from "./ErrorState/ErrorState";
+export { AuthPage } from "./AuthPage/AuthPage";
+export { UserProfile } from "./UserProfile/UserProfile";

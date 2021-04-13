@@ -1,9 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Cart, Home, PlaystationPage, XboxPage, Wishlist } from "./components";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  Cart,
+  Home,
+  PlaystationPage,
+  XboxPage,
+  Wishlist,
+  AuthPage,
+  UserProfile,
+} from "./components";
 import {
   AlertProvider,
+  AuthProvider,
   NavPhoneProvider,
   PlaystationProvider,
   WishlistProvider,
@@ -11,39 +20,38 @@ import {
 import { CartProvider } from "./contexts";
 import { XboxProvider } from "./contexts";
 import "./index.css";
+import { PrivateRoute } from "./PrivateRoute";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <NavPhoneProvider>
-        <CartProvider>
-          <WishlistProvider>
-            <AlertProvider>
-              <PlaystationProvider>
-                <XboxProvider>
-                  <Switch>
-                    <Route path="/playstation">
-                      <PlaystationPage />
-                    </Route>
-                    <Route path="/xbox">
-                      <XboxPage />
-                    </Route>
-                    <Route path="/wishlist">
-                      <Wishlist />
-                    </Route>
-                    <Route path="/cart">
-                      <Cart />
-                    </Route>
-                    <Route path="/">
-                      <Home />
-                    </Route>
-                  </Switch>
-                </XboxProvider>
-              </PlaystationProvider>
-            </AlertProvider>
-          </WishlistProvider>
-        </CartProvider>
-      </NavPhoneProvider>
+      <AuthProvider>
+        <NavPhoneProvider>
+          <CartProvider>
+            <WishlistProvider>
+              <AlertProvider>
+                <PlaystationProvider>
+                  <XboxProvider>
+                    <Routes>
+                      <Route
+                        path="/playstation"
+                        element={<PlaystationPage />}
+                      />
+                      <Route path="/xbox" element={<XboxPage />} />
+                      <PrivateRoute path="/wishlist" element={<Wishlist />} />
+                      <PrivateRoute path="/wishlist" element={<Wishlist />} />
+                      <PrivateRoute path="/user-profile" element={<UserProfile />} />
+                      <Route path="/cart" element={<Cart />} />
+                      <Route path="/login" element={<AuthPage />} />
+                      <Route path="/" element={<Home />} />
+                    </Routes>
+                  </XboxProvider>
+                </PlaystationProvider>
+              </AlertProvider>
+            </WishlistProvider>
+          </CartProvider>
+        </NavPhoneProvider>
+      </AuthProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
