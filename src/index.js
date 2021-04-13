@@ -1,19 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Cart, Home, PlaystationPage, XboxPage, Wishlist } from "./components";
 import {
   AlertProvider,
-  Cart,
-  Home,
   NavPhoneProvider,
-  PlaystationPage,
   PlaystationProvider,
-  Wishlist,
   WishlistProvider,
-  XboxPage,
-} from "./components";
-import { CartProvider } from "./components";
-import { XboxProvider } from "./components/contexts/Xbox/xboxContext";
+} from "./contexts";
+import { CartProvider } from "./contexts";
+import { XboxProvider } from "./contexts";
 import "./index.css";
 
 ReactDOM.render(

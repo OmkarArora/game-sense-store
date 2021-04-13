@@ -1,9 +1,7 @@
 import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
-import { useCart } from "../contexts/Cart/cartContext";
-import { useWindowSize } from "../../hooks/useWindowSize";
-import { useNavPhone } from "../contexts/navPhoneContext";
-import { useWishlist } from "../contexts/Wishlist/wishlistContext";
+import { useCart, useNavPhone, useWishlist } from "../../contexts";
+import { useWindowSize } from "../../hooks";
 import "./cart.css";
 import EmptyCart from "../../images/empty_cart.svg";
 
@@ -103,6 +101,5 @@ export const Cart = () => {
         </div>
       )}
     </div>
-
   );
 };

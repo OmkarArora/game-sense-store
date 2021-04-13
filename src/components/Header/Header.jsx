@@ -4,9 +4,8 @@ import { Navbar } from "../Navbar/Navbar";
 import logo from "../../images/sword.svg";
 import { FaShoppingCart } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useCart } from "../contexts/Cart/cartContext";
-import { useWindowSize } from "../../hooks/useWindowSize";
-import { useNavPhone } from "../contexts/navPhoneContext";
+import { useCart, useNavPhone } from "../../contexts";
+import { useWindowSize } from "../../hooks";
 import "./header.css";
 
 export const Header = ({ active }) => {
@@ -17,7 +16,9 @@ export const Header = ({ active }) => {
     <header className="header">
       {screenWidth < 768 ? (
         <span className="btn-mobile-nav">
-          <GiHamburgerMenu onClick={() => setNavPhoneVisibility((prev) => !prev)} />
+          <GiHamburgerMenu
+            onClick={() => setNavPhoneVisibility((prev) => !prev)}
+          />
         </span>
       ) : (
         <>
@@ -44,7 +45,10 @@ export const Header = ({ active }) => {
           )}
         </Link>
         <div>
-        <Avatar alt="tanjiro" src="https://64.media.tumblr.com/453021cb82f2d79140d92f617c01d98c/4c4becca07962d76-f7/s640x960/f3972fcb52c4f816c9892c0802dec002cb36b842.jpg" />
+          <Avatar
+            alt="tanjiro"
+            src="https://64.media.tumblr.com/453021cb82f2d79140d92f617c01d98c/4c4becca07962d76-f7/s640x960/f3972fcb52c4f816c9892c0802dec002cb36b842.jpg"
+          />
         </div>
       </div>
     </header>

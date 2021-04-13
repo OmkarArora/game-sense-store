@@ -3,8 +3,8 @@ import { Banner } from "../Banner/Banner";
 import { Carousel } from "../Carousel/Carousel";
 import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
-import { useWindowSize } from "../../hooks/useWindowSize";
-import { useNavPhone } from "../contexts/navPhoneContext";
+import { useWindowSize } from "../../hooks";
+import { useNavPhone } from "../../contexts";
 import "./home.css";
 
 export const Home = () => {

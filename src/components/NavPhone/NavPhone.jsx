@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { MdClear } from "react-icons/md";
-import { useNavPhone } from "../contexts/navPhoneContext";
+import { useNavPhone } from "../../contexts";
 import "./navPhone.css";
 
 export const NavPhone = ({ active }) => {

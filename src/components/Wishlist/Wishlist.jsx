@@ -2,11 +2,8 @@ import { useEffect } from "react";
 import { CardCustom, CardContent, CardImage, Tag, StarRating } from "shoto-ui";
 import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
-import { useWishlist } from "../contexts/Wishlist/wishlistContext";
-import { useCart } from "../contexts/Cart/cartContext";
-import { useWindowSize } from "../../hooks/useWindowSize";
-import { useNavPhone } from "../contexts/navPhoneContext";
-import { useAlert } from "../contexts/showAlert";
+import { useWindowSize } from "../../hooks";
+import { useNavPhone, useCart, useAlert, useWishlist } from "../../contexts";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import "./wishlist.css";
@@ -90,14 +87,17 @@ export const Wishlist = () => {
                 ) : (
                   <div className="custom-container-btn-action">
                     <button
-                      onClick={() =>{
+                      onClick={() => {
                         cartDispatch({
                           type: "ADD_TO_CART",
                           payload: { ...item, quantity: 1 },
                         });
-                        return setSnackbar({openStatus: true, type: "info", data: "Moved to cart"})
-                      }
-                      }
+                        return setSnackbar({
+                          openStatus: true,
+                          type: "info",
+                          data: "Moved to cart",
+                        });
+                      }}
                     >
                       Move to cart
                     </button>

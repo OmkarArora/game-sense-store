@@ -4,12 +4,14 @@ import { FilterMenu } from "../FilterMenu/FilterMenu";
 import { FilterPhone } from "../FilterPhone/FilterPhone";
 import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
-import { usePlaystation } from "../contexts/Playstation/playstationContext";
-import { useCart } from "../contexts/Cart/cartContext";
-import { useWishlist } from "../contexts/Wishlist/wishlistContext";
-import { useWindowSize } from "../../hooks/useWindowSize";
-import { useNavPhone } from "../contexts/navPhoneContext";
-import { useAlert } from "../contexts/showAlert";
+import { useWindowSize } from "../../hooks";
+import {
+  useNavPhone,
+  useAlert,
+  useWishlist,
+  useCart,
+  usePlaystation,
+} from "../../contexts";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { LoadingState } from "../LoadingState/LoadingState";
