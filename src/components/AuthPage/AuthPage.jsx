@@ -5,6 +5,7 @@ import { useWindowSize } from "../../hooks";
 import { useNavPhone, useAuth } from "../../contexts";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./authPage.css";
+import { Login } from "./Login/Login";
 
 export const AuthPage = () => {
   const screenWidth = useWindowSize().width;
@@ -39,7 +40,8 @@ export const AuthPage = () => {
         {isUserLoggedIn ? (
           <button onClick={() => logoutUser()}>Log out</button>
         ) : (
-          <button onClick={loginHandler}>Log in</button>
+          // <button onClick={loginHandler}>Log in</button>
+          <Login/>
         )}
       </div>
     </div>

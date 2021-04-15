@@ -44,6 +44,10 @@ body {
   --box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+.icon {
+  cursor: pointer;
+}
+
 .page-heading {
   font-size: 1.8rem;
   font-weight: 600;
