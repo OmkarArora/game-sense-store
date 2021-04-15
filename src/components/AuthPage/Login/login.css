@@ -9,12 +9,15 @@
   border: 1px solid black;
   width: max-content;
   padding: 1rem;
+  width: 100%;
 }
 
 .form-login input {
   width: 100%;
   padding: 0.5rem 0.2rem;
   margin: 0.5rem 0;
+  outline: none;
+  font-size: 1rem;
 }
 
 .form-login .btn-submit {
@@ -36,12 +39,9 @@
   position: relative;
 }
 
-.input-password {
-}
-
 .icon-eye {
   position: absolute;
   right: 0.6rem;
   top: 0.1rem;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }

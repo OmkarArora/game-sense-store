@@ -2,10 +2,11 @@ import { useEffect } from "react";
 import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
 import { useWindowSize } from "../../hooks";
-import { useNavPhone, useAuth } from "../../contexts";
+import { useNavPhone, useAuth, useAlert } from "../../contexts";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./authPage.css";
 import { Login } from "./Login/Login";
+import { LoadingState } from "../LoadingState/LoadingState";
 
 export const AuthPage = () => {
   const screenWidth = useWindowSize().width;
@@ -16,7 +17,14 @@ export const AuthPage = () => {
   const { state } = useLocation();
 
   const navigate = useNavigate();
-  const { isUserLoggedIn, loginUserWithCredentials, logoutUser } = useAuth();
+  const {
+    isUserLoggedIn,
+    loginUserWithCredentials,
+    logoutUser,
+    appState,
+  } = useAuth();
+
+  const { setSnackbar } = useAlert();
 
   useEffect(() => {
     if (isUserLoggedIn) {
@@ -26,8 +34,22 @@ export const AuthPage = () => {
     }
   }, [isUserLoggedIn, navigate, state]);
 
-  const loginHandler = () => {
-    loginUserWithCredentials("admin", "admin");
+  const loginHandler = async (email, password) => {
+    const msg = await loginUserWithCredentials(email, password);
+    if (!msg.success) {
+      setSnackbar({
+        openStatus: true,
+        type: "error",
+        data: msg.error.errorMessage,
+      });
+    }
+    else{
+      setSnackbar({
+        openStatus: true,
+        type: "success",
+        data: "Signed in successfully",
+      });
+    }
   };
 
   return (
@@ -40,8 +62,12 @@ export const AuthPage = () => {
         {isUserLoggedIn ? (
           <button onClick={() => logoutUser()}>Log out</button>
         ) : (
-          // <button onClick={loginHandler}>Log in</button>
-          <Login/>
+          <>
+            <Login
+              loginHandler={(email, password) => loginHandler(email, password)}
+            />
+            {appState === "loading" && <LoadingState />}
+          </>
         )}
       </div>
     </div>
