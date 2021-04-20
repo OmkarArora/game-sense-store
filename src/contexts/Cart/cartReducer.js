@@ -1,4 +1,4 @@
-export const reducerFn = (state, action) => {
+export const cartReducer = (state, action) => {
 	let _state = null;
 
 	// NOTE: getting action undefined without using if()

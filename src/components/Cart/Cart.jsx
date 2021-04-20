@@ -27,7 +27,7 @@ export const Cart = () => {
           <div className="container-cart">
             <div className="items-list">
               {cart.map((item) => (
-                <div className="cart-card">
+                <div className="cart-card" key={`cartItem${item.id}`}>
                   <img
                     className="cart-image"
                     src={item.coverImage}
@@ -73,7 +73,7 @@ export const Cart = () => {
                       </div>
                     </div>
                     <div className="pricing">
-                      {item.currency} {item.price * item.quantity}
+                      {item.currency.symbol} {item.price * item.quantity}
                     </div>
                   </div>
                 </div>
@@ -84,7 +84,7 @@ export const Cart = () => {
                 Subtotal({getTotalCartQuantity()} items)
               </span>
               <span>
-                {cart[0] && cart[0].currency} {getTotalCartPrice()}
+                {cart[0] && cart[0].currency.symbol} {getTotalCartPrice()}
               </span>
 
               <div className="custom-container-btn-action cart">

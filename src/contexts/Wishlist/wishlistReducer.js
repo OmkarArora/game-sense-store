@@ -1,4 +1,4 @@
-export const reducerFn = (state, action) => {
+export const wishlistReducer = (state, action) => {
   let _state = null;
   if (action) {
     switch (action.type) {

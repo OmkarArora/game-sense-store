@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
-import { reducerFn } from "./xboxReducer";
+import { xboxReducer } from "./xboxReducer";
 import axios from "axios";
 
 const XboxContext = createContext();
@@ -10,7 +10,7 @@ export const XboxProvider = ({ children }) => {
   const [
     { products, ratingFilter, priceFilter, appState },
     dispatch,
-  ] = useReducer(reducerFn, {
+  ] = useReducer(xboxReducer, {
     products: [],
     ratingFilter: null,
     priceFilter: null,
@@ -22,6 +22,7 @@ export const XboxProvider = ({ children }) => {
       dispatch({ type: "SET_APP_STATE", payload: "loading" });
       const { data } = await axios.get(`${process.env.REACT_APP_BACKEND}/xbox`);
       if (data.success) {
+        data.products.forEach((item) => item.id = item._id);
         dispatch({ type: "SET_APP_STATE", payload: "success" });
         dispatch({ type: "SET_PRODUCTS", payload: data.products });
       } else {

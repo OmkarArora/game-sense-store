@@ -1,4 +1,4 @@
-export const reducerFn = (state, action) => {
+export const xboxReducer = (state, action) => {
   // NOTE: getting action undefined without using if()
   if (action) {
     switch (action.type) {

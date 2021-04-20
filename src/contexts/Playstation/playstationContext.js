@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
-import { reducerFn } from "./playstationReducer";
+import { playstationReducer } from "./playstationReducer";
 import axios from "axios";
 
 const PlaystationContext = createContext();
@@ -10,7 +10,7 @@ export const PlaystationProvider = ({ children }) => {
   const [
     { products, ratingFilter, priceFilter, appState },
     dispatch,
-  ] = useReducer(reducerFn, {
+  ] = useReducer(playstationReducer, {
     products: [],
     ratingFilter: null,
     priceFilter: null,
@@ -24,6 +24,7 @@ export const PlaystationProvider = ({ children }) => {
         `${process.env.REACT_APP_BACKEND}/playstation`
       );
       if (data.success) {
+        data.products.forEach((item) => item.id = item._id);
         dispatch({ type: "SET_APP_STATE", payload: "success" });
         dispatch({ type: "SET_PRODUCTS", payload: data.products });
       } else {
