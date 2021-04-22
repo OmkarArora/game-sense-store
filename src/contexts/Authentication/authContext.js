@@ -30,9 +30,13 @@ export const AuthProvider = ({ children }) => {
   async function loginUserWithCredentials(email, password) {
     try {
       dispatch({ type: "SET_APP_STATE", payload: "loading" });
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND}/login`, {
-        email, password
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND}/login`,
+        {
+          email,
+          password,
+        }
+      );
       if (response.data.success) {
         dispatch({ type: "LOGIN_USER" });
         dispatch({ type: "SET_APP_STATE", payload: "success" });
@@ -42,10 +46,15 @@ export const AuthProvider = ({ children }) => {
         });
         localStorage?.setItem(
           "login",
-          JSON.stringify({ isUserLoggedIn: true })
+          JSON.stringify({
+            isUserLoggedIn: true,
+            userId: response.data.user.id,
+            role: response.data.user.role,
+            cart: response.data.user.cart,
+          })
         );
       }
-      return response.data;  
+      return response.data;
     } catch (error) {
       dispatch({ type: "SET_APP_STATE", payload: "error" });
       dispatch({
