@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { authReducer } from "./authReducer";
 import { useNavigate } from "react-router-dom";
-import { fakeAuthApi } from "./fakeAuthApi";
+// import { fakeAuthApi } from "./fakeAuthApi";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -26,11 +27,13 @@ export const AuthProvider = ({ children }) => {
       dispatch({ type: "LOGIN_USER", payload: true });
   }, []);
 
-  async function loginUserWithCredentials(username, password) {
+  async function loginUserWithCredentials(email, password) {
     try {
       dispatch({ type: "SET_APP_STATE", payload: "loading" });
-      const response = await fakeAuthApi(username, password);
-      if (response.success) {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND}/login`, {
+        email, password
+      });
+      if (response.data.success) {
         dispatch({ type: "LOGIN_USER" });
         dispatch({ type: "SET_APP_STATE", payload: "success" });
         dispatch({
@@ -41,13 +44,13 @@ export const AuthProvider = ({ children }) => {
           "login",
           JSON.stringify({ isUserLoggedIn: true })
         );
-        return { success: true };
       }
+      return response.data;  
     } catch (error) {
       dispatch({ type: "SET_APP_STATE", payload: "error" });
       dispatch({
         type: "SET_ERROR_MESSAGE",
-        payload: error.errorMessage,
+        payload: error.message,
       });
       return { success: false, error };
     }
