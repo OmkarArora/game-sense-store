@@ -51,6 +51,8 @@ export const cartReducer = (state, action) => {
           id: item.product._id,
         }));
         return { cart: normalisedCart };
+      case "SET_APP_STATE":
+        return { ...state, appState: action.payload };
       default:
         return state;
     }

@@ -44,6 +44,8 @@ export const wishlistReducer = (state, action) => {
         _state =  { wishlist: action.payload };
         _state.wishlist.forEach(item => item.id = item._id);
         return _state;
+      case "SET_APP_STATE":
+        return { ...state, appState: action.payload };
       default:
         return state;
     }

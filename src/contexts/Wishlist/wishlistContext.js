@@ -7,20 +7,31 @@ const WishlistContext = createContext();
 export const useWishlist = () => useContext(WishlistContext);
 
 export const WishlistProvider = ({ children }) => {
-  const [{ wishlist }, dispatch] = useReducer(wishlistReducer, {
+  const [{ wishlist, appState }, dispatch] = useReducer(wishlistReducer, {
     wishlist: [],
+    appState: "success",
   });
-  const value = { wishlist, wishlistDispatch: dispatch };
+  const value = { wishlist, appState, wishlistDispatch: dispatch };
 
   useEffect(() => {
     (async () => {
       if (localStorage?.getItem("login")) {
         const userId = JSON.parse(localStorage.getItem("login")).userId;
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND}/users/${userId}/wishlist`
-        );
-        const fetchedWishlist = response.data.wishlist;
-        dispatch({ type: "SET_WISHLIST", payload: fetchedWishlist });
+        try {
+          dispatch({ type: "SET_APP_STATE", payload: "loading" });
+          const { data } = await axios.get(
+            `${process.env.REACT_APP_BACKEND}/users/${userId}/wishlist`
+          );
+          if (data.success) {
+            const fetchedWishlist = data.wishlist;
+            dispatch({ type: "SET_WISHLIST", payload: fetchedWishlist });
+            dispatch({ type: "SET_APP_STATE", payload: "success" });
+          } else {
+            dispatch({ type: "SET_APP_STATE", payload: "error" });
+          }
+        } catch (error) {
+          dispatch({ type: "SET_APP_STATE", payload: "error" });
+        }
       }
     })();
   }, [dispatch]);

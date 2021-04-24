@@ -7,18 +7,31 @@ const CartContext = createContext();
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  const [{ cart }, dispatch] = useReducer(cartReducer, { cart: [] });
-  const value = { cart, cartDispatch: dispatch };
+  const [{ cart, appState }, dispatch] = useReducer(cartReducer, {
+    cart: [],
+    appState: "success",
+  });
+  const value = { cart, appState, cartDispatch: dispatch };
 
   useEffect(() => {
     (async () => {
       if (localStorage?.getItem("login")) {
         const userId = JSON.parse(localStorage.getItem("login")).userId;
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND}/users/${userId}/cart`
-        );
-        const fetchedCart = response.data.cart;
-        dispatch({ type: "SET_CART", payload: fetchedCart });
+        try {
+          dispatch({ type: "SET_APP_STATE", payload: "loading" });
+          const { data } = await axios.get(
+            `${process.env.REACT_APP_BACKEND}/users/${userId}/cart`
+          );
+          if (data.success) {
+            const fetchedCart = data.cart;
+            dispatch({ type: "SET_CART", payload: fetchedCart });
+            dispatch({ type: "SET_APP_STATE", payload: "success" });
+          } else {
+            dispatch({ type: "SET_APP_STATE", payload: "error" });
+          }
+        } catch (error) {
+          dispatch({ type: "SET_APP_STATE", payload: "error" });
+        }
       }
     })();
   }, [dispatch]);

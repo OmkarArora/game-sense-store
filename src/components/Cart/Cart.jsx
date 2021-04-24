@@ -2,11 +2,13 @@ import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
 import { useCart, useNavPhone, useWishlist } from "../../contexts";
 import { useWindowSize } from "../../hooks";
-import "./cart.css";
 import EmptyCart from "../../images/empty_cart.svg";
+import { LoadingState } from "../LoadingState/LoadingState";
+import { ErrorState } from "../ErrorState/ErrorState";
+import "./cart.css";
 
 export const Cart = () => {
-  const { cart, cartDispatch } = useCart();
+  const { cart, cartDispatch, appState: cartAppState } = useCart();
   const { wishlistDispatch } = useWishlist();
 
   const screenWidth = useWindowSize().width;
@@ -21,10 +23,12 @@ export const Cart = () => {
     <div className="container-app">
       {screenWidth < 768 && navPhoneVisible && <NavPhone active="" />}
       <Header active="" />
-      {cart.length !== 0 && (
-        <>
-          <div className="page-heading">Cart</div>
-          <div className="container-cart">
+      <div className="page-heading">Cart</div>
+      <div className="container-cart">
+        {cartAppState === "loading" && <LoadingState />}
+        {cartAppState === "error" && <ErrorState />}
+        {cartAppState === "success" && cart.length !== 0 && (
+          <>
             <div className="items-list">
               {cart.map((item) => (
                 <div className="cart-card" key={`cartItem${item.id}`}>
@@ -91,10 +95,10 @@ export const Cart = () => {
                 <button>CHECKOUT</button>
               </div>
             </div>
-          </div>
-        </>
-      )}
-      {cart.length === 0 && (
+          </>
+        )}
+      </div>
+      {cartAppState === "success" && cart.length === 0 && (
         <div className="disclaimer-empty">
           <img src={EmptyCart} alt="empty cart" />
           <div>Your cart is empty, add some products now!</div>
