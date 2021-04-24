@@ -14,6 +14,7 @@ import {
 import { useWindowSize } from "../../hooks";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IoBagCheckOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 import "./xboxPage.css";
 
 export const XboxPage = () => {
@@ -66,7 +67,9 @@ export const XboxPage = () => {
               filteredData.map((item) => {
                 return (
                   <CardCustom key={item.id}>
-                    <CardImage image={item.coverImage} title={item.name} />
+                    <Link to={`/product/${item.id}`}>
+                      <CardImage image={item.coverImage} title={item.name} />
+                    </Link>
                     <CardContent>
                       <div>
                         <div
@@ -110,13 +113,15 @@ export const XboxPage = () => {
                             </div>
                           )}
                         </div>
-                        <div>{item.name}</div>
+                        <div>
+                          <Link to={`/product/${item.id}`}>{item.name}</Link>
+                        </div>
                       </div>
                       <div>
                         <div className="custom-card-price">
                           {item.price === 0
                             ? "Free"
-                            : `${item.currency} ${item.price}`}
+                            : `${item.currency.symbol} ${item.price}`}
                         </div>
                         <div className="custom-container-tags">
                           {item.platforms.map((_item) => (

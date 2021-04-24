@@ -89,6 +89,11 @@ body {
   flex-grow: 1;
 }
 
+.games-list a {
+  text-decoration: none;
+  color: unset;
+}
+
 .custom-container-heart {
   color: rgb(224, 36, 94);
   cursor: pointer;
