@@ -63,7 +63,7 @@ export const Wishlist = () => {
                   <div className="custom-card-price">
                     {item.price === 0
                       ? "Free"
-                      : `${item.currency} ${item.price}`}
+                      : `${item.currency.symbol} ${item.price}`}
                   </div>
                   <div className="custom-container-tags">
                     {item.platforms.map((_item) => (
