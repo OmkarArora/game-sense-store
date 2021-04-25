@@ -80,7 +80,7 @@ export const PlaystationPage = () => {
                 filteredData.map((item) => {
                   return (
                     <CardCustom key={item.id}>
-                      <Link to={`/product/${item.id}`}>
+                      <Link to={`/product/${item.id}`} state={{ item }}>
                         <CardImage image={item.coverImage} title={item.name} />
                       </Link>
                       <CardContent>

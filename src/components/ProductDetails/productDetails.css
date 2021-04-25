@@ -1,0 +1,38 @@
+.container-app.container-product-details {
+  padding: 0;
+}
+
+.main-product-details {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.main-product-details .container-img {
+  width: 100%;
+  max-height: 45rem;
+  overflow: hidden;
+}
+
+.main-product-details .img-big {
+  width: 100%;
+  height: auto;
+}
+
+.main-product-details .product-details {
+  display: flex;
+  background-color: rgba(31, 31, 31);
+  padding: 0 1rem;
+  /* height: 100%; */
+  flex-grow: 1;
+}
+
+.card-details {
+  /* background-image: linear-gradient(rgba(31, 31, 31, 0.1), #1f1f1f); */
+  background-color: rgba(31, 31, 31, 0.3);
+  color: white;
+  padding: 2rem;
+  backdrop-filter: blur(3px);
+  margin-top: -5rem;
+  font-size: 2rem;
+}
