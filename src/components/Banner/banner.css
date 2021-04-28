@@ -27,6 +27,7 @@
 .new-product .heading {
   font-size: 1.5rem;
   font-weight: 600;
+  z-index: calc(var(--z-glass-circle) + 1);
 }
 
 .circle1,

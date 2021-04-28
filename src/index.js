@@ -9,6 +9,7 @@ import {
   WishlistProvider,
   XboxProvider,
   CartProvider,
+  HomeProvider,
 } from "./contexts";
 import AllRoutes from "./AllRoutes";
 import "./index.css";
@@ -21,11 +22,13 @@ ReactDOM.render(
           <CartProvider>
             <WishlistProvider>
               <AlertProvider>
+                <HomeProvider>
                 <PlaystationProvider>
                   <XboxProvider>
                     <AllRoutes />
                   </XboxProvider>
                 </PlaystationProvider>
+                </HomeProvider>
               </AlertProvider>
             </WishlistProvider>
           </CartProvider>

@@ -1,17 +1,23 @@
+import { Card } from "shoto-ui";
 import { useEffect } from "react";
 import { Banner } from "../Banner/Banner";
-import { Carousel } from "../Carousel/Carousel";
 import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
+import { LoadingState } from "../LoadingState/LoadingState";
+import { ErrorState } from "../ErrorState/ErrorState";
+import { Link } from "react-router-dom";
 import { useWindowSize } from "../../hooks";
-import { useNavPhone } from "../../contexts";
+import { useNavPhone, useHome } from "../../contexts";
 import "./home.css";
 
 export const Home = () => {
   const screenWidth = useWindowSize().width;
   const { navPhoneVisible, setNavPhoneVisibility } = useNavPhone();
+  // const navigate = useNavigate();
 
   useEffect(() => setNavPhoneVisibility(false), [setNavPhoneVisibility]);
+
+  const { products, appState } = useHome();
 
   return (
     <div className="container-app">
@@ -21,10 +27,32 @@ export const Home = () => {
         <Banner />
       </div>
       <h3>New Releases</h3>
-      <Carousel />
-      {/* TODO: To be added in future version */}
-      {/* <h3>Explore Top Games</h3>
-      <ExploreGames /> */}
+      {appState === "loading" && <LoadingState />}
+      {appState === "error" && <ErrorState />}
+      {appState === "success" && (
+        <div className="container-showcase-products">
+          {products.map((product) => (
+            <Link
+              to={`/product/${product.id}`}
+              state={{ item: product }}
+              key={product.id}
+            >
+              <Card
+                type="hero"
+                heading={product.name}
+                subtext={`${product.currency.symbol} ${product.price}`}
+                description={product.description.substr(0, 60) + "..."}
+                tags={product.platforms}
+                // actionBtnText="Buy Now"
+                // performAction={() =>
+                //   navigate(`/product/${product.id}`, { state: { item: product } })
+                // }
+                bgImage={product.coverImage}
+              />
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,3 +1,37 @@
 .container-new-product {
   margin-top: calc(var(--height-header) + 2rem);
 }
+
+.container-showcase-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  grid-gap: 1rem;
+  grid-auto-rows: 265px;
+}
+
+.container-showcase-products a {
+  text-decoration: none;
+}
+
+.container-showcase-products .shoto-card-hero {
+  height: 100%;
+}
+
+.container-showcase-products .shoto-card-hero .overlay .container-tags {
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 768px) {
+  .container-showcase-products {
+    display: grid;
+    grid-template-columns: minmax(300px, 1fr);
+    grid-gap: 1rem;
+    grid-auto-rows: auto;
+  }
+  .container-showcase-products .shoto-card-hero .overlay {
+    width: 100%;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    padding: 1.5rem;
+  }
+}
