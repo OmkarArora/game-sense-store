@@ -22,8 +22,9 @@
 
 .main-product-details .product-details {
   display: flex;
+  justify-content: space-between;
   background-color: rgba(31, 31, 31);
-  padding: 0 1rem;
+  padding: 0 0 2rem 1rem;
   flex-grow: 1;
 }
 
@@ -63,13 +64,26 @@
   background-color: rgba(255, 255, 255, 0.08);
 }
 
+.main-product-details .container-carousel {
+  margin-top: -5rem;
+  width: 50vw;
+}
+
 @media screen and (max-width: 768px) {
   .main-product-details .product-details {
-    justify-content: center;
-    padding: 0 2rem;
+    align-items: center;
+    padding: 0 0 1rem 0;
+    flex-direction: column;
+    justify-content: flex-start;
   }
+
+  .main-product-details .container-carousel {
+    margin-top: 1rem;
+    margin-left: 2rem;
+    width: 100%;
+  }
+
   .product-details .card-details {
-    flex-grow: 1;
     min-width: unset;
   }
 }

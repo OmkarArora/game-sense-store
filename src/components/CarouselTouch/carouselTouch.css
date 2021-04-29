@@ -1,0 +1,35 @@
+.carousel {
+  --carousel-img-height: 200px;
+
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border: 2px solid var(--color-yellow-dark);
+  height: calc(var(--carousel-img-height) + 2rem);
+}
+
+.carousel .track {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: inline-flex;
+  touch-action: none;
+  height: min-content;
+}
+
+.carousel .track .card {
+  height: 100px;
+  width: auto;
+  background: #fff;
+  border-radius: 2px;
+  margin-right: 20px;
+
+  font-size: 2rem;
+  user-select: none;
+}
+
+.carousel .track .card img {
+  height: var(--carousel-img-height);
+  width: auto;
+  user-select: none;
+}

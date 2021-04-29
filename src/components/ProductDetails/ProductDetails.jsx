@@ -11,10 +11,13 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { LoadingState } from "../LoadingState/LoadingState";
 import { ErrorState } from "../ErrorState/ErrorState";
 import "./productDetails.css";
+import { CarouselTouch } from "../CarouselTouch/CarouselTouch";
 
 export const ProductDetails = () => {
   const [appState, setAppState] = useState("success");
   const [item, setItem] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(0);
+
   const { productId } = useParams();
   const screenWidth = useWindowSize().width;
   const { navPhoneVisible } = useNavPhone();
@@ -48,6 +51,16 @@ export const ProductDetails = () => {
     }
   }, [state, productId]);
 
+  const getImage = () => {
+    console.log(item);
+    if (item) {
+      if (item.gallery && item.gallery.length !== 0)
+        return item.gallery[selectedImage];
+      else return item.coverImage;
+    }
+    return null;
+  };
+
   return (
     <div className="container-app container-product-details">
       {screenWidth < 768 && navPhoneVisible && <NavPhone active="" />}
@@ -59,7 +72,7 @@ export const ProductDetails = () => {
           <>
             <div className="container-img">
               <img
-                src={item && item.coverImage}
+                src={getImage()}
                 className="img-big"
                 alt={item && item.name}
               />
@@ -71,7 +84,8 @@ export const ProductDetails = () => {
                   {item && item.currency.symbol} {item && item.price}
                 </div>
                 <div className="custom-container-tags">
-                    {item.platforms.map((_item) => (
+                  {item &&
+                    item.platforms.map((_item) => (
                       <Tag
                         color="#fff"
                         borderColor="#fff"
@@ -138,6 +152,15 @@ export const ProductDetails = () => {
                   )}
                 </div>
               </div>
+              {item && item.gallery && item.gallery.length !== 0 && (
+                <div className="container-carousel">
+                  <CarouselTouch
+                    images={item.gallery}
+                    title={item && item.name}
+                    setSelectedImage={setSelectedImage}
+                  />
+                </div>
+              )}
             </div>
           </>
         )}
