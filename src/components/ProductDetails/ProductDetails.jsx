@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Tag } from "shoto-ui";
 import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
 import { useLocation, useParams } from "react-router-dom";
@@ -65,9 +66,20 @@ export const ProductDetails = () => {
             </div>
             <div className="product-details">
               <div className="card-details">
-                <div>{item && item.name}</div>
-                <div>
+                <div className="name">{item && item.name}</div>
+                <div className="price">
                   {item && item.currency.symbol} {item && item.price}
+                </div>
+                <div className="custom-container-tags">
+                    {item.platforms.map((_item) => (
+                      <Tag
+                        color="#fff"
+                        borderColor="#fff"
+                        key={`${item.id}${_item}`}
+                      >
+                        {_item}
+                      </Tag>
+                    ))}
                 </div>
                 <div className="action-area">
                   {item && cart.find((cartItem) => cartItem.id === item.id) ? (
@@ -75,26 +87,25 @@ export const ProductDetails = () => {
                       <span className="icon-addedToCart">
                         <IoBagCheckOutline />
                       </span>
-                      Moved to Cart
+                      Added to Cart
                     </div>
                   ) : (
-                    <div className="custom-container-btn-action">
-                      <button
-                        onClick={() => {
-                          cartDispatch({
-                            type: "ADD_TO_CART",
-                            payload: { ...item, quantity: 1 },
-                          });
-                          return setSnackbar({
-                            openStatus: true,
-                            type: "info",
-                            data: "Moved to cart",
-                          });
-                        }}
-                      >
-                        Move to cart
-                      </button>
-                    </div>
+                    <button
+                      className="btn-primary-yellow"
+                      onClick={() => {
+                        cartDispatch({
+                          type: "ADD_TO_CART",
+                          payload: { ...item, quantity: 1 },
+                        });
+                        return setSnackbar({
+                          openStatus: true,
+                          type: "success",
+                          data: "Added to cart",
+                        });
+                      }}
+                    >
+                      Add to cart
+                    </button>
                   )}
 
                   {item &&

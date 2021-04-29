@@ -178,6 +178,21 @@ body {
   text-align: center;
 }
 
+.btn-primary-yellow {
+  border-radius: 1rem;
+  border: none;
+  outline: none;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-yellow);
+  cursor: pointer;
+  color: #0f1111;
+  font-size: 0.9rem;
+}
+
+.btn-primary-yellow:hover {
+  background-color: var(--color-yellow-dark);
+}
+
 @media screen and (max-width: 768px) {
   .main-container-products .games-list {
     margin-left: 0;
