@@ -70,7 +70,11 @@ export const AuthPage = () => {
     }
   };
   const logoutHandler = () => {
-    cartDispatch({ type: "SET_CART", payload: [] });
+    if(localStorage?.getItem("noUserCart")){
+      cartDispatch({ type: "SET_CART", payload: JSON.parse(localStorage.getItem("noUserCart")) });
+    }else{
+      cartDispatch({ type: "SET_CART", payload: [] });
+    }
     logoutUser();
   };
 

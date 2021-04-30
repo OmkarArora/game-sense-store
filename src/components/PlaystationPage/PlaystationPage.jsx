@@ -116,10 +116,21 @@ export const PlaystationPage = () => {
                               <div
                                 className="custom-container-heart"
                                 onClick={() =>
-                                  wishlistDispatch({
-                                    type: "ADD_TO_WISHLIST",
-                                    payload: item,
-                                  })
+                                  {
+                                    if (localStorage?.getItem("login")) {
+                                      wishlistDispatch({
+                                        type: "ADD_TO_WISHLIST",
+                                        payload: item,
+                                      })
+                                    }else{
+                                      setSnackbar({
+                                        openStatus: true,
+                                        type: "error",
+                                        data: "Login to save to wishlist",
+                                      });
+                                    }
+                                  }
+                                 
                                 }
                               >
                                 <AiOutlineHeart />

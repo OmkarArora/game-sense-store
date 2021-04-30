@@ -1,6 +1,6 @@
 import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
-import { useCart, useNavPhone, useWishlist } from "../../contexts";
+import { useCart, useNavPhone, useWishlist, useAlert } from "../../contexts";
 import { useWindowSize } from "../../hooks";
 import EmptyCart from "../../images/empty_cart.svg";
 import { LoadingState } from "../LoadingState/LoadingState";
@@ -13,6 +13,7 @@ export const Cart = () => {
 
   const screenWidth = useWindowSize().width;
   const { navPhoneVisible } = useNavPhone();
+  const { setSnackbar } = useAlert();
 
   const getTotalCartQuantity = () =>
     cart.reduce((acc, curr) => acc + curr.quantity, 0);
@@ -34,15 +35,16 @@ export const Cart = () => {
                 <div className="cart-card" key={`cartItem${item.id}`}>
                   <img
                     className="cart-image"
-                    src={item.coverImage}
-                    alt={item.name}
+                    src={item && item.coverImage}
+                    alt={item && item.name}
                   />
                   <div className="cart-item-details">
                     <div className="details">
                       <div>
                         <div className="name">{item.name}</div>
                         <div className="subheading">
-                          <span>Platforms:</span> {item.platforms.join(", ")}
+                          <span>Platforms:</span>{" "}
+                          {item && item.platforms && item.platforms.join(", ")}
                         </div>
                       </div>
                       <div className="cart-actions">
@@ -62,14 +64,22 @@ export const Cart = () => {
                         |{" "}
                         <span
                           onClick={() => {
-                            wishlistDispatch({
-                              type: "ADD_TO_WISHLIST",
-                              payload: item,
-                            });
-                            return cartDispatch({
-                              type: "REMOVE_FROM_CART",
-                              payload: item.id,
-                            });
+                            if (localStorage?.getItem("login")) {
+                              wishlistDispatch({
+                                type: "ADD_TO_WISHLIST",
+                                payload: item,
+                              });
+                              return cartDispatch({
+                                type: "REMOVE_FROM_CART",
+                                payload: item.id,
+                              });
+                            } else {
+                              setSnackbar({
+                                openStatus: true,
+                                type: "error",
+                                data: "Login to save to wishlist",
+                              });
+                            }                
                           }}
                         >
                           Save for later
@@ -77,7 +87,8 @@ export const Cart = () => {
                       </div>
                     </div>
                     <div className="pricing">
-                      {item.currency.symbol} {item.price * item.quantity}
+                      {item && item.currency && item.currency.symbol}{" "}
+                      {(item && item.price) * (item && item.quantity)}
                     </div>
                   </div>
                 </div>

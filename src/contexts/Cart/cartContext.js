@@ -24,13 +24,22 @@ export const CartProvider = ({ children }) => {
           );
           if (data.success) {
             const fetchedCart = data.cart;
-            dispatch({ type: "SET_CART", payload: fetchedCart });
+            const normalisedCart = fetchedCart.map((item) => ({
+              ...item.product,
+              quantity: item.quantity,
+              id: item.product._id,
+            }));
+            dispatch({ type: "SET_CART", payload: normalisedCart });
             dispatch({ type: "SET_APP_STATE", payload: "success" });
           } else {
             dispatch({ type: "SET_APP_STATE", payload: "error" });
           }
         } catch (error) {
           dispatch({ type: "SET_APP_STATE", payload: "error" });
+        }
+      }else{
+        if(localStorage?.getItem("noUserCart")){
+          dispatch({ type: "SET_CART", payload: JSON.parse(localStorage.getItem("noUserCart")) });
         }
       }
     })();

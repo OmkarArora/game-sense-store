@@ -22,6 +22,10 @@ export const cartReducer = (state, action) => {
               }
             );
           })();
+        }else{
+          if(localStorage){
+            localStorage.setItem("noUserCart", JSON.stringify(_state.cart));
+          }
         }
         return _state;
       case "REMOVE_FROM_CART":
@@ -42,15 +46,14 @@ export const cartReducer = (state, action) => {
             );
           })();
         }
+        else{
+          if(localStorage){
+            localStorage.setItem("noUserCart", JSON.stringify(_state.cart));
+          }
+        }
         return _state;
       case "SET_CART":
-        const cart = action.payload;
-        const normalisedCart = cart.map((item) => ({
-          ...item.product,
-          quantity: item.quantity,
-          id: item.product._id,
-        }));
-        return { ...state, cart: normalisedCart };
+        return { ...state, cart: action.payload };
       case "SET_APP_STATE":
         return { ...state, appState: action.payload };
       default:
