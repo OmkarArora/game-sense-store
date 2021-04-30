@@ -4,8 +4,8 @@
   position: relative;
   overflow: hidden;
   width: 100%;
-  border: 2px solid var(--color-yellow-dark);
   height: calc(var(--carousel-img-height) + 2rem);
+  box-shadow: inset 20px 0 30px -14px var(--color-yellow-dark);
 }
 
 .carousel .track {
