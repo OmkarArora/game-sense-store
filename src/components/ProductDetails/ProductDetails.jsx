@@ -52,7 +52,6 @@ export const ProductDetails = () => {
   }, [state, productId]);
 
   const getImage = () => {
-    console.log(item);
     if (item) {
       if (item.gallery && item.gallery.length !== 0)
         return item.gallery[selectedImage];

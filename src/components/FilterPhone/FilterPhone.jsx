@@ -10,7 +10,6 @@ export const FilterPhone = ({
   priceFilter,
 }) => {
   const [isFilterOpen, setFilter] = useState(false);
-  console.log(isFilterOpen);
   return (
     <div
       className="container-filterPhone"

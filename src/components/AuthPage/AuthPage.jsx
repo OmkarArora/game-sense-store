@@ -36,7 +36,6 @@ export const AuthPage = () => {
 
   const loginHandler = async (email, password) => {
     const msg = await loginUserWithCredentials(email, password);
-    console.log(msg);
     if (!msg.success) {
       setSnackbar({
         openStatus: true,
