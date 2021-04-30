@@ -3,8 +3,8 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import "./login.css";
 
 export const Login = ({ loginHandler }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("user@gmail.com");
+  const [password, setPassword] = useState("abcd@1234");
   const [passwordVisible, setPasswordVisibility] = useState(false);
 
   const onSubmit = (e) => {

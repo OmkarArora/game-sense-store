@@ -1,8 +1,9 @@
+import axios from "axios";
 import { useEffect } from "react";
 import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
 import { useWindowSize } from "../../hooks";
-import { useNavPhone, useAuth, useAlert } from "../../contexts";
+import { useNavPhone, useAuth, useAlert, useCart } from "../../contexts";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./authPage.css";
 import { Login } from "./Login/Login";
@@ -11,12 +12,14 @@ import { LoadingState } from "../LoadingState/LoadingState";
 export const AuthPage = () => {
   const screenWidth = useWindowSize().width;
   const { navPhoneVisible, setNavPhoneVisibility } = useNavPhone();
+  const { cartDispatch } = useCart();
 
   useEffect(() => setNavPhoneVisibility(false), [setNavPhoneVisibility]);
 
   const { state } = useLocation();
 
   const navigate = useNavigate();
+
   const {
     isUserLoggedIn,
     loginUserWithCredentials,
@@ -42,14 +45,33 @@ export const AuthPage = () => {
         type: "error",
         data: msg.errorMessage,
       });
-    }
-    else{
+    } else {
+      // fetch cart
+      (async () => {
+        const userId = msg.user.id;
+        try {
+          const { data } = await axios.get(
+            `${process.env.REACT_APP_BACKEND}/users/${userId}/cart`
+          );
+          if (data.success) {
+            const fetchedCart = data.cart;
+            cartDispatch({ type: "SET_CART", payload: fetchedCart });
+          }
+        } catch (error) {
+          cartDispatch({ type: "SET_APP_STATE", payload: "error" });
+        }
+      })();
+
       setSnackbar({
         openStatus: true,
         type: "success",
         data: "Signed in successfully",
       });
     }
+  };
+  const logoutHandler = () => {
+    cartDispatch({ type: "SET_CART", payload: [] });
+    logoutUser();
   };
 
   return (
@@ -60,7 +82,7 @@ export const AuthPage = () => {
         Auth page
         <br />
         {isUserLoggedIn ? (
-          <button onClick={() => logoutUser()}>Log out</button>
+          <button onClick={logoutHandler}>Log out</button>
         ) : (
           <>
             <Login

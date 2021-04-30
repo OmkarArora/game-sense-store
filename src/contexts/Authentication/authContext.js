@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { authReducer } from "./authReducer";
 import { useNavigate } from "react-router-dom";
-// import { fakeAuthApi } from "./fakeAuthApi";
 import axios from "axios";
 
 export const AuthContext = createContext();
@@ -9,12 +8,14 @@ export const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [{ isUserLoggedIn, appState, errorMessage }, dispatch] = useReducer(
+
+  const [{ isUserLoggedIn, appState, errorMessage, userData }, dispatch] = useReducer(
     authReducer,
     {
       isUserLoggedIn: false,
       appState: "success",
       errorMessage: "",
+      userData: {}
     }
   );
 
@@ -40,6 +41,7 @@ export const AuthProvider = ({ children }) => {
       if (response.data.success) {
         dispatch({ type: "LOGIN_USER" });
         dispatch({ type: "SET_APP_STATE", payload: "success" });
+        dispatch({ type: "SET_USER_DATA", payload: response.data.user });
         dispatch({
           type: "SET_ERROR_MESSAGE",
           payload: "",
@@ -77,6 +79,7 @@ export const AuthProvider = ({ children }) => {
     logoutUser,
     appState,
     errorMessage,
+    userData,
     dispatch,
   };
 

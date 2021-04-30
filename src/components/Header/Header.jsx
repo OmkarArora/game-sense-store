@@ -10,9 +10,11 @@ import "./header.css";
 
 export const Header = ({ active }) => {
   const { cart } = useCart();
+  
   const screenWidth = useWindowSize().width;
   const { setNavPhoneVisibility } = useNavPhone();
   const { isUserLoggedIn } = useAuth();
+
   return (
     <header className="header">
       {screenWidth < 768 ? (

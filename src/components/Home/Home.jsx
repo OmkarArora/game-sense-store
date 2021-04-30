@@ -13,7 +13,6 @@ import "./home.css";
 export const Home = () => {
   const screenWidth = useWindowSize().width;
   const { navPhoneVisible, setNavPhoneVisibility } = useNavPhone();
-  // const navigate = useNavigate();
 
   useEffect(() => setNavPhoneVisibility(false), [setNavPhoneVisibility]);
 
