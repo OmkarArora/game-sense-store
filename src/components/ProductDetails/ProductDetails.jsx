@@ -77,88 +77,94 @@ export const ProductDetails = () => {
               />
             </div>
             <div className="product-details">
-              <div className="card-details">
-                <div className="name">{item && item.name}</div>
-                <div className="price">
-                  {item && item.currency.symbol} {item && item.price}
-                </div>
-                <div className="custom-container-tags">
-                  {item &&
-                    item.platforms.map((_item) => (
-                      <Tag
-                        color="#fff"
-                        borderColor="#fff"
-                        key={`${item.id}${_item}`}
+              <div className="headers">
+                <div className="card-details">
+                  <div className="name">{item && item.name}</div>
+                  <div className="price">
+                    {item && item.currency.symbol} {item && item.price}
+                  </div>
+                  <div className="custom-container-tags">
+                    {item &&
+                      item.platforms.map((_item) => (
+                        <Tag
+                          color="#fff"
+                          borderColor="#fff"
+                          key={`${item.id}${_item}`}
+                        >
+                          {_item}
+                        </Tag>
+                      ))}
+                  </div>
+                  <div className="action-area">
+                    {item &&
+                    cart.find((cartItem) => cartItem.id === item.id) ? (
+                      <div className="text-addedToCart wishlist">
+                        <span className="icon-addedToCart">
+                          <IoBagCheckOutline />
+                        </span>
+                        Added to Cart
+                      </div>
+                    ) : (
+                      <button
+                        className="btn-primary-yellow"
+                        onClick={() => {
+                          cartDispatch({
+                            type: "ADD_TO_CART",
+                            payload: { ...item, quantity: 1 },
+                          });
+                          return setSnackbar({
+                            openStatus: true,
+                            type: "success",
+                            data: "Added to cart",
+                          });
+                        }}
                       >
-                        {_item}
-                      </Tag>
-                    ))}
-                </div>
-                <div className="action-area">
-                  {item && cart.find((cartItem) => cartItem.id === item.id) ? (
-                    <div className="text-addedToCart wishlist">
-                      <span className="icon-addedToCart">
-                        <IoBagCheckOutline />
-                      </span>
-                      Added to Cart
-                    </div>
-                  ) : (
-                    <button
-                      className="btn-primary-yellow"
-                      onClick={() => {
-                        cartDispatch({
-                          type: "ADD_TO_CART",
-                          payload: { ...item, quantity: 1 },
-                        });
-                        return setSnackbar({
-                          openStatus: true,
-                          type: "success",
-                          data: "Added to cart",
-                        });
-                      }}
-                    >
-                      Add to cart
-                    </button>
-                  )}
+                        Add to cart
+                      </button>
+                    )}
 
-                  {item &&
-                  wishlist.find(
-                    (wishlistItem) => wishlistItem.id === item.id
-                  ) ? (
-                    <div
-                      className="custom-container-heart"
-                      onClick={() =>
-                        wishlistDispatch({
-                          type: "REMOVE_FROM_WISHLIST",
-                          payload: item.id,
-                        })
-                      }
-                    >
-                      <AiFillHeart />
-                    </div>
-                  ) : (
-                    <div
-                      className="custom-container-heart"
-                      onClick={() =>
-                        wishlistDispatch({
-                          type: "ADD_TO_WISHLIST",
-                          payload: item,
-                        })
-                      }
-                    >
-                      <AiOutlineHeart />
-                    </div>
-                  )}
+                    {item &&
+                    wishlist.find(
+                      (wishlistItem) => wishlistItem.id === item.id
+                    ) ? (
+                      <div
+                        className="custom-container-heart"
+                        onClick={() =>
+                          wishlistDispatch({
+                            type: "REMOVE_FROM_WISHLIST",
+                            payload: item.id,
+                          })
+                        }
+                      >
+                        <AiFillHeart />
+                      </div>
+                    ) : (
+                      <div
+                        className="custom-container-heart"
+                        onClick={() =>
+                          wishlistDispatch({
+                            type: "ADD_TO_WISHLIST",
+                            payload: item,
+                          })
+                        }
+                      >
+                        <AiOutlineHeart />
+                      </div>
+                    )}
+                  </div>
                 </div>
+                {item && item.gallery && item.gallery.length !== 0 && (
+                  <div className="container-carousel">
+                    <CarouselTouch
+                      images={item.gallery}
+                      title={item && item.name}
+                      setSelectedImage={setSelectedImage}
+                    />
+                  </div>
+                )}
               </div>
-              {item && item.gallery && item.gallery.length !== 0 && (
-                <div className="container-carousel">
-                  <CarouselTouch
-                    images={item.gallery}
-                    title={item && item.name}
-                    setSelectedImage={setSelectedImage}
-                  />
-                </div>
+              {item && item.description && (
+                <div className="description">{item.description}</div>
               )}
             </div>
           </>

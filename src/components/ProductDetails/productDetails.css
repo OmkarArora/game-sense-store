@@ -1,5 +1,6 @@
 .container-app.container-product-details {
   padding: 0;
+  --bg-color-dark: rgba(31, 31, 31);
 }
 
 .main-product-details {
@@ -12,7 +13,9 @@
 .main-product-details .container-img {
   width: 100%;
   max-height: 45rem;
+  min-height: 15rem;
   overflow: hidden;
+  background-color: var(--bg-color-dark);
 }
 
 .main-product-details .img-big {
@@ -22,10 +25,22 @@
 
 .main-product-details .product-details {
   display: flex;
-  justify-content: space-between;
-  background-color: rgba(31, 31, 31);
-  padding: 0 0 2rem 1rem;
+  flex-direction: column;
   flex-grow: 1;
+  gap: 2rem;
+  background-color: var(--bg-color-dark);
+  padding: 0 0 2rem 1rem;
+}
+
+.main-product-details .product-details .headers {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-product-details .product-details .description {
+  color: white;
+  padding: 0 2rem 2rem 2rem;
+  line-height: 1.5rem;
 }
 
 .product-details .card-details {
@@ -73,6 +88,9 @@
   .main-product-details .product-details {
     align-items: center;
     padding: 0 0 1rem 0;
+  }
+
+  .main-product-details .product-details .headers {
     flex-direction: column;
     justify-content: flex-start;
   }
