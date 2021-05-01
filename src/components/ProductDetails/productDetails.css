@@ -15,23 +15,25 @@
   width: 100%;
   height: 36rem;
   background-color: var(--bg-color-dark);
+  /* overflow: hidden; */
 }
 
 .main-product-details .img-big {
   width: 100%;
   height: auto;
+  max-height: 120vh;
 }
 
 .main-product-details .product-details {
   display: flex;
   justify-content: space-between;
-  flex-grow: 1;
   background-color: var(--bg-color-dark);
   padding: 0 0 2rem 1rem;
 }
 
 .main-product-details .description {
   color: white;
+  font-size: 1.05rem;
   padding: 1.5rem 2rem 2rem 2rem;
   line-height: 1.5rem;
   background-color: var(--bg-color-dark);
@@ -104,6 +106,9 @@
 
 @media only screen and (min-width: 1584px) {
   .main-product-details .container-img {
-    height: 47rem;
+    height: 46rem;
+  }
+  .main-product-details .img-big {
+    max-height: 110vh;
   }
 }
