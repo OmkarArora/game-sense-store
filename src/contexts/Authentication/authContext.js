@@ -8,16 +8,15 @@ export const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-
-  const [{ isUserLoggedIn, appState, errorMessage, userData }, dispatch] = useReducer(
-    authReducer,
-    {
-      isUserLoggedIn: false,
-      appState: "success",
-      errorMessage: "",
-      userData: {}
-    }
-  );
+  const [
+    { isUserLoggedIn, appState, errorMessage, userData },
+    dispatch,
+  ] = useReducer(authReducer, {
+    isUserLoggedIn: false,
+    appState: "success",
+    errorMessage: "",
+    userData: {},
+  });
 
   const navigate = useNavigate();
 
@@ -55,6 +54,8 @@ export const AuthProvider = ({ children }) => {
             cart: response.data.user.cart,
           })
         );
+      } else {
+        dispatch({ type: "SET_APP_STATE", payload: "success" });
       }
       return response.data;
     } catch (error) {
