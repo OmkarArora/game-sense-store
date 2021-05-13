@@ -61,7 +61,7 @@ export const ProductCard = ({ item, starColor, tagColor, category }) => {
             )}
           </div>
           <div>
-            <Link to={`/product/${item.id}`}>{item.name}</Link>
+            <Link to={`/product/${item.id}`} state={{ item }}>{item.name}</Link>
           </div>
         </div>
         <div>
