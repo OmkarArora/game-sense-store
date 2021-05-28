@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 import { cartReducer } from "./cartReducer";
 import axios from "axios";
+import { setupAuthHeaderForServiceCalls } from "../axiosMethods";
 
 const CartContext = createContext();
 
@@ -15,8 +16,10 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      if (localStorage?.getItem("login")) {
-        const userId = JSON.parse(localStorage.getItem("login")).userId;
+      const loginStatus = JSON.parse(localStorage.getItem("gSenseLogin"));
+      if (loginStatus) {
+        const userId = loginStatus.userId;
+        setupAuthHeaderForServiceCalls(loginStatus.token);
         try {
           dispatch({ type: "SET_APP_STATE", payload: "loading" });
           const { data } = await axios.get(
@@ -37,9 +40,12 @@ export const CartProvider = ({ children }) => {
         } catch (error) {
           dispatch({ type: "SET_APP_STATE", payload: "error" });
         }
-      }else{
-        if(localStorage?.getItem("noUserCart")){
-          dispatch({ type: "SET_CART", payload: JSON.parse(localStorage.getItem("noUserCart")) });
+      } else {
+        if (localStorage?.getItem("noUserCart")) {
+          dispatch({
+            type: "SET_CART",
+            payload: JSON.parse(localStorage.getItem("noUserCart")),
+          });
         }
       }
     })();

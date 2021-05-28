@@ -42,7 +42,7 @@ export const ProductCard = ({ item, starColor, tagColor, category }) => {
               <div
                 className="custom-container-heart"
                 onClick={() => {
-                  if (localStorage?.getItem("login")) {
+                  if (localStorage?.getItem("gSenseLogin")) {
                     wishlistDispatch({
                       type: "ADD_TO_WISHLIST",
                       payload: item,

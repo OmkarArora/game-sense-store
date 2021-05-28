@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 import { wishlistReducer } from "./wishlistReducer";
 import axios from "axios";
+import { setupAuthHeaderForServiceCalls } from "../axiosMethods";
 
 const WishlistContext = createContext();
 
@@ -15,8 +16,10 @@ export const WishlistProvider = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      if (localStorage?.getItem("login")) {
-        const userId = JSON.parse(localStorage.getItem("login")).userId;
+      const loginStatus = JSON.parse(localStorage?.getItem("gSenseLogin"));
+      if (loginStatus) {
+        const userId = loginStatus.userId;
+        setupAuthHeaderForServiceCalls(loginStatus.token);
         try {
           dispatch({ type: "SET_APP_STATE", payload: "loading" });
           const { data } = await axios.get(

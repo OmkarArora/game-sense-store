@@ -7,8 +7,8 @@ export const wishlistReducer = (state, action) => {
       case "ADD_TO_WISHLIST":
         if(!state.wishlist.find(item => item.id===action.payload.id)){
           _state = { ...state, wishlist: state.wishlist.concat(action.payload) };
-          if (localStorage?.getItem("login")) {
-            const userId = JSON.parse(localStorage.getItem("login")).userId;
+          if (localStorage?.getItem("gSenseLogin")) {
+            const userId = JSON.parse(localStorage.getItem("gSenseLogin")).userId;
             const sendWishlistToBackend = _state.wishlist.map((item) => item._id);
             (async () => {
               await axios.post(
@@ -27,8 +27,8 @@ export const wishlistReducer = (state, action) => {
         _state.wishlist = state.wishlist.filter(
           (item) => item.id !== action.payload
         );
-        if (localStorage?.getItem("login")) {
-          const userId = JSON.parse(localStorage.getItem("login")).userId;
+        if (localStorage?.getItem("gSenseLogin")) {
+          const userId = JSON.parse(localStorage.getItem("gSenseLogin")).userId;
           const sendWishlistToBackend = _state.wishlist.map((item) => item._id);
           (async () => {
             await axios.post(

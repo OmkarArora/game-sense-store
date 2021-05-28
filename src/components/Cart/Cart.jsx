@@ -64,7 +64,7 @@ export const Cart = () => {
                         |{" "}
                         <span
                           onClick={() => {
-                            if (localStorage?.getItem("login")) {
+                            if (localStorage?.getItem("gSenseLogin")) {
                               wishlistDispatch({
                                 type: "ADD_TO_WISHLIST",
                                 payload: item,

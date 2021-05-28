@@ -1,27 +1,50 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useCallback,
+} from "react";
 import { authReducer } from "./authReducer";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {
+  setupAuthHeaderForServiceCalls,
+  setupAuthExceptionHandler,
+} from "../axiosMethods";
 
 export const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [
-    { isUserLoggedIn, appState, errorMessage, userData },
-    dispatch,
-  ] = useReducer(authReducer, {
-    isUserLoggedIn: false,
-    appState: "success",
-    errorMessage: "",
-    userData: {},
-  });
+  let local_token =
+    JSON.parse(localStorage?.getItem("glabslogin"))?.token || null;
+  const [{ isUserLoggedIn, appState, errorMessage, userData, token }, dispatch] =
+    useReducer(authReducer, {
+      isUserLoggedIn: false,
+      appState: "success",
+      errorMessage: "",
+      userData: undefined,
+      token: local_token,
+    });
 
   const navigate = useNavigate();
 
+  const logoutUser = useCallback(() => {
+    dispatch({ type: "LOGOUT_USER" });
+    localStorage.removeItem("gSenseLogin");
+    setupAuthHeaderForServiceCalls(null);
+    navigate("/");
+  }, [navigate]);
+
+  useEffect(
+    () => setupAuthExceptionHandler(logoutUser, navigate),
+    [logoutUser, navigate]
+  );
+
   useEffect(() => {
-    const loginStatus = JSON.parse(localStorage?.getItem("login"));
+    const loginStatus = JSON.parse(localStorage?.getItem("gSenseLogin"));
 
     loginStatus?.isUserLoggedIn &&
       dispatch({ type: "LOGIN_USER", payload: true });
@@ -42,21 +65,27 @@ export const AuthProvider = ({ children }) => {
         dispatch({ type: "SET_APP_STATE", payload: "success" });
         dispatch({ type: "SET_USER_DATA", payload: response.data.user });
         dispatch({
+          type: "SET_TOKEN",
+          payload: { token: response.data.token },
+        });
+        dispatch({
           type: "SET_ERROR_MESSAGE",
           payload: "",
         });
         localStorage?.setItem(
-          "login",
+          "gSenseLogin",
           JSON.stringify({
             isUserLoggedIn: true,
             userId: response.data.user.id,
             role: response.data.user.role,
             cart: response.data.user.cart,
+            token: response.data.token,
           })
         );
-      } else {
-        dispatch({ type: "SET_APP_STATE", payload: "success" });
+        setupAuthHeaderForServiceCalls(token || response.data.token);
       }
+      dispatch({ type: "SET_APP_STATE", payload: "success" });
+
       return response.data;
     } catch (error) {
       dispatch({ type: "SET_APP_STATE", payload: "error" });
@@ -66,12 +95,6 @@ export const AuthProvider = ({ children }) => {
       });
       return { success: false, error };
     }
-  }
-
-  function logoutUser() {
-    dispatch({ type: "LOGOUT_USER" });
-    localStorage.removeItem("login");
-    navigate("/");
   }
 
   const value = {
