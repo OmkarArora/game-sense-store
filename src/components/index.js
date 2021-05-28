@@ -7,4 +7,5 @@ export { Cart } from "./Cart/Cart";
 export { LoadingState } from "./LoadingState/LoadingState";
 export { ErrorState } from "./ErrorState/ErrorState";
 export { Login } from "./Auth/Login";
+export { Signup } from "./Auth/Signup";
 export { UserProfile } from "./UserProfile/UserProfile";

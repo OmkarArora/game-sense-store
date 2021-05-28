@@ -6,7 +6,8 @@ import {
   Wishlist,
   UserProfile,
   ProductDetails,
-  Login
+  Login,
+  Signup
 } from "./components";
 import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
@@ -22,6 +23,7 @@ const AllRoutes = () => {
       <PrivateRoute path="/user-profile" element={<UserProfile />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
       <Route path="/" element={<Home />} />
     </Routes>
   );

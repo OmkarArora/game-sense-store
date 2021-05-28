@@ -1,22 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavPhone, useAuth, useAlert, useCart } from "../../contexts";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth, useAlert, useCart } from "../../contexts";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 // import { LoadingState } from "../LoadingState/LoadingState";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import "./authPage.css";
 
 export const Login = () => {
-  const {setNavPhoneVisibility } = useNavPhone();
   const { cartDispatch } = useCart();
-
-  useEffect(() => setNavPhoneVisibility(false), [setNavPhoneVisibility]);
 
   const { state } = useLocation();
 
   const navigate = useNavigate();
 
-  const { isUserLoggedIn, loginUserWithCredentials, appState } =
+  const { isUserLoggedIn, loginUserWithCredentials } =
     useAuth();
 
   const { setSnackbar } = useAlert();
@@ -81,7 +78,7 @@ export const Login = () => {
         <div className="container-form-login">
           <div className="auth-heading">Log In</div>
           <div className="auth-subheading">
-            Not a member yet? <span>Sign Up</span>
+            Not a member yet? <Link to="/signup">Sign Up</Link>
           </div>
           <form className="form-login" onSubmit={onSubmit}>
             <input

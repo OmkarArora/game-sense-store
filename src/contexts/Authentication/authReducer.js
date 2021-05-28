@@ -5,7 +5,7 @@ export const authReducer = (state, action) => {
       case "LOGIN_USER":
         return { ...state, isUserLoggedIn: true };
       case "LOGOUT_USER":
-        return { ...state, isUserLoggedIn: false };
+        return { ...state, isUserLoggedIn: false, token: null };
       case "SET_USER_DATA":
         return { ...state, userData: action.payload };
       case "SET_APP_STATE":
