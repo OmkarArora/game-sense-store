@@ -19,7 +19,9 @@ export const CartProvider = ({ children }) => {
       const loginStatus = JSON.parse(localStorage.getItem("gSenseLogin"));
       if (loginStatus) {
         const userId = loginStatus.userId;
-        setupAuthHeaderForServiceCalls(loginStatus.token);
+        if(loginStatus.token){
+          setupAuthHeaderForServiceCalls(loginStatus.token);
+        }
         try {
           dispatch({ type: "SET_APP_STATE", payload: "loading" });
           const { data } = await axios.get(

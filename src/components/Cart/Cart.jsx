@@ -28,7 +28,7 @@ export const Cart = () => {
       <div className="container-cart">
         {cartAppState === "loading" && <LoadingState />}
         {cartAppState === "error" && <ErrorState />}
-        {cartAppState === "success" && cart.length !== 0 && (
+        {cartAppState === "success" && cart && cart.length !== 0 && (
           <>
             <div className="items-list">
               {cart.map((item) => (
@@ -79,7 +79,7 @@ export const Cart = () => {
                                 type: "error",
                                 data: "Login to save to wishlist",
                               });
-                            }                
+                            }
                           }}
                         >
                           Save for later
@@ -96,10 +96,12 @@ export const Cart = () => {
             </div>
             <div className="container-subtotal">
               <span className="heading-subtotal">
-                Subtotal({getTotalCartQuantity()} items)
+                Subtotal({cart && cart.length !== 0 && getTotalCartQuantity()}{" "}
+                items)
               </span>
               <span>
-                {cart[0] && cart[0].currency && cart[0].currency.symbol} {getTotalCartPrice()}
+                {cart[0] && cart[0].currency && cart[0].currency.symbol}{" "}
+                {cart && cart.length !== 0 && getTotalCartPrice()}
               </span>
 
               <div className="custom-container-btn-action cart">

@@ -19,7 +19,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   let local_token =
-    JSON.parse(localStorage?.getItem("glabslogin"))?.token || null;
+    JSON.parse(localStorage?.getItem("gSenseLogin"))?.token || null;
   const [{ isUserLoggedIn, appState, errorMessage, userData, token }, dispatch] =
     useReducer(authReducer, {
       isUserLoggedIn: false,
@@ -82,6 +82,7 @@ export const AuthProvider = ({ children }) => {
             token: response.data.token,
           })
         );
+        console.log("authContext")
         setupAuthHeaderForServiceCalls(token || response.data.token);
       }
       dispatch({ type: "SET_APP_STATE", payload: "success" });
