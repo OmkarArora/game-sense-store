@@ -1,20 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useAuth, useAlert, useCart } from "../../contexts";
+import { useAuth, useAlert, useCart, useWishlist } from "../../contexts";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { LoadingState } from "../LoadingState/LoadingState";
+import { LoadingModal } from "../LoadingModal/LoadingModal";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import "./authPage.css";
 
 export const Login = () => {
   const { cartDispatch } = useCart();
+  const { wishlistDispatch } = useWishlist();
 
   const { state } = useLocation();
 
   const navigate = useNavigate();
 
-  const { isUserLoggedIn, loginUserWithCredentials } =
-    useAuth();
+  const { isUserLoggedIn, loginUserWithCredentials, appState } = useAuth();
 
   const { setSnackbar } = useAlert();
 
@@ -39,9 +39,9 @@ export const Login = () => {
         data: msg.errorMessage,
       });
     } else {
+      const userId = msg.user.id;
       // fetch cart
       (async () => {
-        const userId = msg.user.id;
         try {
           const { data } = await axios.get(
             `${process.env.REACT_APP_BACKEND}/users/${userId}/cart`
@@ -60,6 +60,26 @@ export const Login = () => {
         }
       })();
 
+      //fetch wishlist
+      (async () => {
+        try {
+          const { data } = await axios.get(
+            `${process.env.REACT_APP_BACKEND}/users/${userId}/wishlist`
+          );
+          if (data.success) {
+            const fetchedWishlist = data.wishlist;
+            wishlistDispatch({
+              type: "SET_WISHLIST",
+              payload: fetchedWishlist,
+            });
+          } else {
+            wishlistDispatch({ type: "SET_APP_STATE", payload: "error" });
+          }
+        } catch (error) {
+          wishlistDispatch({ type: "SET_APP_STATE", payload: "error" });
+        }
+      })();
+
       setSnackbar({
         openStatus: true,
         type: "success",
@@ -74,42 +94,43 @@ export const Login = () => {
   };
 
   return (
-      <div className="container-authPage">
-        <div className="container-form-login">
-          <div className="auth-heading">Log In</div>
-          <div className="auth-subheading">
-            Not a member yet? <Link to="/signup">Sign Up</Link>
-          </div>
-          <form className="form-login" onSubmit={onSubmit}>
+    <div className="container-authPage">
+      <div className="container-form-login">
+        <div className="auth-heading">Log In</div>
+        <div className="auth-subheading">
+          Not a member yet? <Link to="/signup">Sign Up</Link>
+        </div>
+        <form className="form-login" onSubmit={onSubmit}>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <label className="label-password">
             <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              className="input-password"
+              type={passwordVisible ? "text" : "password"}
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <label className="label-password">
-              <input
-                className="input-password"
-                type={passwordVisible ? "text" : "password"}
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <span
-                className="icon icon-eye"
-                onClick={() => setPasswordVisibility((prev) => !prev)}
-              >
-                {passwordVisible ? <AiFillEye /> : <AiFillEyeInvisible />}
-              </span>
-            </label>
+            <span
+              className="icon icon-eye"
+              onClick={() => setPasswordVisibility((prev) => !prev)}
+            >
+              {passwordVisible ? <AiFillEye /> : <AiFillEyeInvisible />}
+            </span>
+          </label>
 
-            <button type="submit" className="btn-submit">
-              LOGIN
-            </button>
-          </form>
-        </div>
+          <button type="submit" className="btn-submit">
+            LOGIN
+          </button>
+        </form>
       </div>
+      {appState === "loading" && <LoadingModal />}
+    </div>
   );
 };

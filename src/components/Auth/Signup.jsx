@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useAuth, useAlert } from "../../contexts";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import { LoadingModal } from "../LoadingModal/LoadingModal";
 import "./authPage.css";
 
 export const Signup = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { isUserLoggedIn ,signupUser } = useAuth();
+  const { isUserLoggedIn, signupUser, appState } = useAuth();
   const { setSnackbar } = useAlert();
 
   useEffect(() => {
@@ -123,6 +124,7 @@ export const Signup = () => {
           </button>
         </form>
       </div>
+      {appState === "loading" && <LoadingModal />}
     </div>
   );
 };

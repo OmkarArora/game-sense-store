@@ -20,7 +20,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   let local_token =
     JSON.parse(localStorage?.getItem("gSenseLogin"))?.token || null;
-  const [{ isUserLoggedIn, appState, errorMessage, userData, token }, dispatch] =
+  const [{ isUserLoggedIn, appState, errorMessage, userData }, dispatch] =
     useReducer(authReducer, {
       isUserLoggedIn: false,
       appState: "success",
@@ -82,8 +82,7 @@ export const AuthProvider = ({ children }) => {
             token: response.data.token,
           })
         );
-        console.log("authContext")
-        setupAuthHeaderForServiceCalls(token || response.data.token);
+        setupAuthHeaderForServiceCalls(response.data.token);
       }
       dispatch({ type: "SET_APP_STATE", payload: "success" });
 
@@ -128,7 +127,7 @@ export const AuthProvider = ({ children }) => {
             token: response.data.token,
           })
         );
-        setupAuthHeaderForServiceCalls(token || response.data.token);
+        setupAuthHeaderForServiceCalls(response.data.token);
       }
       dispatch({ type: "SET_APP_STATE", payload: "success" });
       return response.data;
