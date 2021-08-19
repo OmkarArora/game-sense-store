@@ -1,15 +1,17 @@
 import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
-import { useCart, useNavPhone, useWishlist, useAlert } from "../../contexts";
+import { useCart, useNavPhone, useWishlist, useAlert, useAuth } from "../../contexts";
 import { useWindowSize } from "../../hooks";
 import EmptyCart from "../../images/empty_cart.svg";
 import { LoadingState } from "../LoadingState/LoadingState";
 import { ErrorState } from "../ErrorState/ErrorState";
+import { displayRazorpay } from "../../utils/RazorpayGateway";
 import "./cart.css";
 
 export const Cart = () => {
   const { cart, cartDispatch, appState: cartAppState } = useCart();
   const { wishlistDispatch } = useWishlist();
+  const {userId} = useAuth();
 
   const screenWidth = useWindowSize().width;
   const { navPhoneVisible } = useNavPhone();
@@ -17,8 +19,27 @@ export const Cart = () => {
 
   const getTotalCartQuantity = () =>
     cart.reduce((acc, curr) => acc + curr.quantity, 0);
+
   const getTotalCartPrice = () =>
     cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+
+  let productDetailsForPayment = [];
+  if (cart)
+    productDetailsForPayment = cart.reduce(
+      (acc, curr) => [...acc, { productId: curr._id, qty: curr.quantity }],
+      []
+    );
+
+  const fulfilOrder = () => {
+    cartDispatch({
+      type: "RESET_CART"
+    });
+    setSnackbar({
+      openStatus: true,
+      type: "success",
+      data: "Payment successful",
+    });
+  }
 
   return (
     <div className="container-app">
@@ -105,7 +126,11 @@ export const Cart = () => {
               </span>
 
               <div className="custom-container-btn-action cart">
-                <button>CHECKOUT</button>
+                <button
+                  onClick={() => displayRazorpay(productDetailsForPayment, userId, fulfilOrder)}
+                >
+                  CHECKOUT
+                </button>
               </div>
             </div>
           </>

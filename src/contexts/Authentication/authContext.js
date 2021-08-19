@@ -20,14 +20,20 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   let local_token =
     JSON.parse(localStorage?.getItem("gSenseLogin"))?.token || null;
-  const [{ isUserLoggedIn, appState, errorMessage, userData }, dispatch] =
-    useReducer(authReducer, {
-      isUserLoggedIn: false,
-      appState: "success",
-      errorMessage: "",
-      userData: undefined,
-      token: local_token,
-    });
+  let local_userId =
+    JSON.parse(localStorage?.getItem("gSenseLogin"))?.userId || undefined;
+    
+  const [
+    { isUserLoggedIn, appState, errorMessage, userData, userId },
+    dispatch,
+  ] = useReducer(authReducer, {
+    isUserLoggedIn: false,
+    appState: "success",
+    errorMessage: "",
+    userData: undefined,
+    token: local_token,
+    userId: local_userId,
+  });
 
   const navigate = useNavigate();
 
@@ -149,6 +155,7 @@ export const AuthProvider = ({ children }) => {
     appState,
     errorMessage,
     userData,
+    userId,
     dispatch,
   };
 
