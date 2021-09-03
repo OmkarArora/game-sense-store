@@ -40,17 +40,17 @@ export const OrderCard = ({
     <div className="card-order">
       <div className="header-order">
         <div className="order-details">
-          <div>
+          <div className="order-pair">
             <div className="key">ORDER PLACED</div>
             <div className="value">{getDateString(fulfilmentDate)}</div>
           </div>
-          <div>
+          <div className="order-pair">
             <div className="key">TOTAL</div>
             <div className="value">₹ {amount/100}</div>
           </div>
         </div>
         <div className="order-details">
-          <div>
+          <div className="order-pair">
             <div className="key">ORDER #{orderId}</div>
           </div>
         </div>

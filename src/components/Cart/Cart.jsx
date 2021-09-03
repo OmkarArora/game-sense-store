@@ -15,12 +15,14 @@ import { displayRazorpay } from "../../utils/RazorpayGateway";
 import { LoadingModal } from "../LoadingModal/LoadingModal";
 import { useState } from "react";
 import "./cart.css";
+import { useNavigate } from "react-router-dom";
 
 export const Cart = () => {
   const { cart, cartDispatch, appState: cartAppState } = useCart();
   const { wishlistDispatch } = useWishlist();
   const { userId } = useAuth();
   const { ordersDispatch } = useOrders();
+  const navigate = useNavigate();
 
   const screenWidth = useWindowSize().width;
   const { navPhoneVisible } = useNavPhone();
@@ -51,6 +53,7 @@ export const Cart = () => {
       type: "success",
       data: "Payment successful",
     });
+    navigate("/");
   };
 
   return (
