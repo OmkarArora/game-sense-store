@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const displayRazorpay = async (products, userId, fulfilOrder) => {
+export const displayRazorpay = async (products, userId, fulfilOrder, setCheckoutLoading) => {
   const { data } = await axios.post(
     `${process.env.REACT_APP_BACKEND}/payments/razorpay`,
     {
@@ -16,6 +16,11 @@ export const displayRazorpay = async (products, userId, fulfilOrder) => {
     description: "Wallet Transaction",
     image: `${process.env.REACT_APP_BACKEND}/logo.png`,
     order_id: data.id,
+    modal: {
+      ondismiss: function(){
+        setCheckoutLoading(false);
+      }
+  },
     handler: async function (response) {
       try {
         await axios.post(

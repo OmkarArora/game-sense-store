@@ -144,6 +144,15 @@ input {
   background-color: var(--color-yellow-dark);
 }
 
+.custom-container-btn-action button:disabled {
+  opacity: 0.8;
+  cursor: default;
+}
+
+.custom-container-btn-action button:disabled:hover {
+  background-color: var(--color-yellow);
+}
+
 .custom-container-tags {
   display: flex;
   flex-wrap: wrap;
