@@ -39,9 +39,8 @@ const AllRoutes = () => {
       <Route path="/xbox" element={<XboxPage />} />
       <Route path="/product/:productId" element={<ProductDetails />} />
       <PrivateRoute path="/wishlist" element={<Wishlist />} />
-      <PrivateRoute path="/wishlist" element={<Wishlist />} />
       <PrivateRoute path="/user-profile" element={<UserProfile />} />
-      <Route path="/cart" element={<Cart />} />
+      <PrivateRoute path="/cart" element={<Cart />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/" element={<Home />} />
