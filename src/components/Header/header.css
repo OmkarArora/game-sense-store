@@ -13,6 +13,11 @@
   box-shadow: var(--box-shadow);
 }
 
+.header a.link-logo {
+  text-decoration: none;
+  color: black;
+}
+
 .btn-mobile-nav {
   font-size: 1.6rem;
 }

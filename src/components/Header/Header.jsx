@@ -10,7 +10,7 @@ import "./header.css";
 
 export const Header = ({ active }) => {
   const { cart } = useCart();
-  
+
   const screenWidth = useWindowSize().width;
   const { setNavPhoneVisibility } = useNavPhone();
   const { isUserLoggedIn } = useAuth();
@@ -25,11 +25,12 @@ export const Header = ({ active }) => {
         </span>
       ) : (
         <>
-          {" "}
-          <div className="container-logo">
-            <img src={logo} alt="logo" />
-            Game Sense
-          </div>
+          <Link to="/" className="link-logo">
+            <div className="container-logo">
+              <img src={logo} alt="logo" />
+              Game Sense
+            </div>
+          </Link>
           <Navbar active={active} />
         </>
       )}
