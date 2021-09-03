@@ -3,11 +3,11 @@ import { useEffect } from "react";
 import { Banner } from "../Banner/Banner";
 import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
-import { LoadingState } from "../LoadingState/LoadingState";
 import { ErrorState } from "../ErrorState/ErrorState";
 import { Link } from "react-router-dom";
 import { useWindowSize } from "../../hooks";
 import { useNavPhone, useHome } from "../../contexts";
+import { LoadingCard } from "../LoadingCard/LoadingCard";
 import "./home.css";
 
 export const Home = () => {
@@ -26,7 +26,14 @@ export const Home = () => {
         <Banner />
       </div>
       <h3>New Releases</h3>
-      {appState === "loading" && <LoadingState />}
+      {appState === "loading" && (
+        <div className="container-showcase-products container-loading-cards">
+          <LoadingCard />
+          <LoadingCard />
+          <LoadingCard />
+          <LoadingCard />
+        </div>
+      )}
       {appState === "error" && <ErrorState />}
       {appState === "success" && (
         <div className="container-showcase-products">

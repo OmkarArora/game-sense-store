@@ -5,13 +5,19 @@ import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
 import { useLocation, useParams } from "react-router-dom";
 import { useWindowSize } from "../../hooks";
-import { useNavPhone, useCart, useWishlist, useAlert } from "../../contexts";
+import {
+  useNavPhone,
+  useCart,
+  useWishlist,
+  useAlert,
+  useAuth,
+} from "../../contexts";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { LoadingState } from "../LoadingState/LoadingState";
 import { ErrorState } from "../ErrorState/ErrorState";
-import "./productDetails.css";
 import { CarouselTouch } from "../CarouselTouch/CarouselTouch";
+import "./productDetails.css";
 
 export const ProductDetails = () => {
   const [appState, setAppState] = useState("success");
@@ -26,6 +32,7 @@ export const ProductDetails = () => {
   const { cart, cartDispatch } = useCart();
   const { wishlist, wishlistDispatch } = useWishlist();
   const { setSnackbar } = useAlert();
+  const { isUserLoggedIn } = useAuth();
 
   useEffect(() => {
     if (!state) {
@@ -106,15 +113,23 @@ export const ProductDetails = () => {
                     <button
                       className="btn-primary-yellow"
                       onClick={() => {
-                        cartDispatch({
-                          type: "ADD_TO_CART",
-                          payload: { ...item, quantity: 1 },
-                        });
-                        return setSnackbar({
-                          openStatus: true,
-                          type: "success",
-                          data: "Added to cart",
-                        });
+                        if (isUserLoggedIn) {
+                          cartDispatch({
+                            type: "ADD_TO_CART",
+                            payload: { ...item, quantity: 1 },
+                          });
+                          return setSnackbar({
+                            openStatus: true,
+                            type: "success",
+                            data: "Added to cart",
+                          });
+                        } else {
+                          setSnackbar({
+                            openStatus: true,
+                            type: "error",
+                            data: "Login to add to cart",
+                          });
+                        }
                       }}
                     >
                       Add to cart
@@ -139,12 +154,20 @@ export const ProductDetails = () => {
                   ) : (
                     <div
                       className="custom-container-heart"
-                      onClick={() =>
-                        wishlistDispatch({
-                          type: "ADD_TO_WISHLIST",
-                          payload: item,
-                        })
-                      }
+                      onClick={() => {
+                        if (isUserLoggedIn) {
+                          wishlistDispatch({
+                            type: "ADD_TO_WISHLIST",
+                            payload: item,
+                          });
+                        } else {
+                          setSnackbar({
+                            openStatus: true,
+                            type: "error",
+                            data: "Login to save to wishlist",
+                          });
+                        }
+                      }}
                     >
                       <AiOutlineHeart />
                     </div>

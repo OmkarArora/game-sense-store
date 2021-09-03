@@ -1,7 +1,7 @@
 import { CardCustom, CardContent, CardImage, Tag, StarRating } from "shoto-ui";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IoBagCheckOutline } from "react-icons/io5";
-import { useAlert, useWishlist, useCart } from "../../contexts";
+import { useAlert, useWishlist, useCart, useAuth } from "../../contexts";
 import { Link } from "react-router-dom";
 import "./productCard.css";
 
@@ -9,6 +9,7 @@ export const ProductCard = ({ item, starColor, tagColor, category }) => {
   const { wishlist, wishlistDispatch } = useWishlist();
   const { cart, cartDispatch } = useCart();
   const { setSnackbar } = useAlert();
+  const {isUserLoggedIn} = useAuth();
   return (
     <CardCustom key={item.id}>
       <Link to={`/product/${item.id}`} state={{ item }}>
@@ -42,7 +43,7 @@ export const ProductCard = ({ item, starColor, tagColor, category }) => {
               <div
                 className="custom-container-heart"
                 onClick={() => {
-                  if (localStorage?.getItem("gSenseLogin")) {
+                  if (isUserLoggedIn) {
                     wishlistDispatch({
                       type: "ADD_TO_WISHLIST",
                       payload: item,
@@ -93,15 +94,23 @@ export const ProductCard = ({ item, starColor, tagColor, category }) => {
           <div className={`custom-container-btn-action ${category}`}>
             <button
               onClick={() => {
-                cartDispatch({
-                  type: "ADD_TO_CART",
-                  payload: { ...item, quantity: 1 },
-                });
-                return setSnackbar({
-                  openStatus: true,
-                  type: "success",
-                  data: "Added to cart",
-                });
+                if (isUserLoggedIn) {
+                  cartDispatch({
+                    type: "ADD_TO_CART",
+                    payload: { ...item, quantity: 1 },
+                  });
+                  return setSnackbar({
+                    openStatus: true,
+                    type: "success",
+                    data: "Added to cart",
+                  });
+                } else {
+                  setSnackbar({
+                    openStatus: true,
+                    type: "error",
+                    data: "Login to add to cart",
+                  });
+                }
               }}
             >
               Add to cart

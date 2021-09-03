@@ -54,6 +54,8 @@ export const cartReducer = (state, action) => {
         return _state;
       case "SET_CART":
         return { ...state, cart: action.payload };
+      case "RESET_CART":
+        return {...state, cart: []};
       case "SET_APP_STATE":
         return { ...state, appState: action.payload };
       default:

@@ -1,24 +1,57 @@
 import { Header } from "../Header/Header";
 import { NavPhone } from "../NavPhone/NavPhone";
-import { useCart, useNavPhone, useWishlist, useAlert } from "../../contexts";
+import {
+  useCart,
+  useNavPhone,
+  useWishlist,
+  useAlert,
+  useAuth,
+  useOrders,
+} from "../../contexts";
 import { useWindowSize } from "../../hooks";
 import EmptyCart from "../../images/empty_cart.svg";
-import { LoadingState } from "../LoadingState/LoadingState";
 import { ErrorState } from "../ErrorState/ErrorState";
+import { displayRazorpay } from "../../utils/RazorpayGateway";
+import { LoadingModal } from "../LoadingModal/LoadingModal";
+import { useState } from "react";
 import "./cart.css";
 
 export const Cart = () => {
   const { cart, cartDispatch, appState: cartAppState } = useCart();
   const { wishlistDispatch } = useWishlist();
+  const { userId } = useAuth();
+  const { ordersDispatch } = useOrders();
 
   const screenWidth = useWindowSize().width;
   const { navPhoneVisible } = useNavPhone();
   const { setSnackbar } = useAlert();
 
+  const [isCheckoutLoading, setCheckoutLoading] = useState(false);
+
   const getTotalCartQuantity = () =>
     cart.reduce((acc, curr) => acc + curr.quantity, 0);
+
   const getTotalCartPrice = () =>
     cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+
+  let productDetailsForPayment = [];
+  if (cart)
+    productDetailsForPayment = cart.reduce(
+      (acc, curr) => [...acc, { productId: curr._id, qty: curr.quantity }],
+      []
+    );
+
+  const fulfilOrder = (orders) => {
+    ordersDispatch({ type: "SET_ORDERS", payload: { orders } });
+    cartDispatch({
+      type: "RESET_CART",
+    });
+    setSnackbar({
+      openStatus: true,
+      type: "success",
+      data: "Payment successful",
+    });
+  };
 
   return (
     <div className="container-app">
@@ -26,7 +59,7 @@ export const Cart = () => {
       <Header active="" />
       <div className="page-heading">Cart</div>
       <div className="container-cart">
-        {cartAppState === "loading" && <LoadingState />}
+        {cartAppState === "loading" && <LoadingModal />}
         {cartAppState === "error" && <ErrorState />}
         {cartAppState === "success" && cart && cart.length !== 0 && (
           <>
@@ -105,7 +138,20 @@ export const Cart = () => {
               </span>
 
               <div className="custom-container-btn-action cart">
-                <button>CHECKOUT</button>
+                <button
+                  disabled={isCheckoutLoading}
+                  onClick={() => {
+                    setCheckoutLoading(true);
+                    displayRazorpay(
+                      productDetailsForPayment,
+                      userId,
+                      fulfilOrder,
+                      setCheckoutLoading
+                    );
+                  }}
+                >
+                  {isCheckoutLoading ? "Loading..." : "CHECKOUT"}
+                </button>
               </div>
             </div>
           </>
