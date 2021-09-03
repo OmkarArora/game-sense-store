@@ -6,6 +6,7 @@ import {
   useWishlist,
   useAlert,
   useAuth,
+  useOrders,
 } from "../../contexts";
 import { useWindowSize } from "../../hooks";
 import EmptyCart from "../../images/empty_cart.svg";
@@ -19,12 +20,13 @@ export const Cart = () => {
   const { cart, cartDispatch, appState: cartAppState } = useCart();
   const { wishlistDispatch } = useWishlist();
   const { userId } = useAuth();
+  const { ordersDispatch } = useOrders();
 
   const screenWidth = useWindowSize().width;
   const { navPhoneVisible } = useNavPhone();
   const { setSnackbar } = useAlert();
 
-  const [isCheckoutLoading,setCheckoutLoading] = useState(false);
+  const [isCheckoutLoading, setCheckoutLoading] = useState(false);
 
   const getTotalCartQuantity = () =>
     cart.reduce((acc, curr) => acc + curr.quantity, 0);
@@ -39,7 +41,8 @@ export const Cart = () => {
       []
     );
 
-  const fulfilOrder = () => {
+  const fulfilOrder = (orders) => {
+    ordersDispatch({ type: "SET_ORDERS", payload: { orders } });
     cartDispatch({
       type: "RESET_CART",
     });
@@ -135,7 +138,8 @@ export const Cart = () => {
               </span>
 
               <div className="custom-container-btn-action cart">
-                <button disabled={isCheckoutLoading}
+                <button
+                  disabled={isCheckoutLoading}
                   onClick={() => {
                     setCheckoutLoading(true);
                     displayRazorpay(
@@ -146,7 +150,7 @@ export const Cart = () => {
                     );
                   }}
                 >
-                  {isCheckoutLoading?"Loading..." : "CHECKOUT"}
+                  {isCheckoutLoading ? "Loading..." : "CHECKOUT"}
                 </button>
               </div>
             </div>

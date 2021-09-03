@@ -28,7 +28,7 @@ export const displayRazorpay = async (
     },
     handler: async function (response) {
       try {
-        await axios.post(
+        const {data: successData} = await axios.post(
           `${process.env.REACT_APP_BACKEND}/users/${userId}/orders`,
           {
             products,
@@ -38,7 +38,7 @@ export const displayRazorpay = async (
             gateway: "razorpay",
           }
         );
-        fulfilOrder();
+        fulfilOrder(successData.orders);
       } catch (error) {
         console.error(error);
       }

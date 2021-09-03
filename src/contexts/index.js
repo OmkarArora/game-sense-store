@@ -9,3 +9,4 @@ export { WishlistProvider, useWishlist } from "./Wishlist/wishlistContext";
 export { NavPhoneProvider, useNavPhone } from "./navPhoneContext";
 export { AlertProvider, useAlert } from "./showAlert";
 export { AuthProvider, useAuth } from "./Authentication/authContext";
+export { OrdersProvider, useOrders } from "./Orders/ordersContext";
