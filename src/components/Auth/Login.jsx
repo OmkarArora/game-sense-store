@@ -93,6 +93,11 @@ export const Login = () => {
     loginHandler(email, password);
   };
 
+  const onSubmitWithTestCreds = e => {
+    e.preventDefault();
+    loginHandler("user@gmail.com", "abcd@1234");
+  }
+
   return (
     <div className="container-authPage">
       <div className="container-form-login">
@@ -129,6 +134,11 @@ export const Login = () => {
             LOGIN
           </button>
         </form>
+        <form className="form-login" onSubmit={onSubmitWithTestCreds}>
+        <button type="submit" className="btn-submit secondary">
+            Login with Test Credentials
+          </button>
+          </form>
       </div>
       {appState === "loading" && <LoadingModal />}
     </div>

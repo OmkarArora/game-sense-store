@@ -23,7 +23,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: max-content;
+  width: 600px;
   background-color: white;
   border-radius: 2rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -41,8 +41,6 @@
 }
 
 .form-login {
-  width: max-content;
-  padding: 1rem;
   width: 100%;
 }
 
@@ -68,6 +66,10 @@
 
 .form-login .btn-submit:hover {
   opacity: 1;
+}
+
+.form-login .btn-submit.secondary {
+  background-color: var(--banner-color-2);
 }
 
 .label-password {
