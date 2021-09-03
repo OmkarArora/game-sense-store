@@ -27,7 +27,8 @@ body {
   --z-header: 2;
   --z-glass-circle: 1;
   --z-filterPhone: 3;
-  --z-navPhone: 4;
+  --z-alert: 4;
+  --z-navPhone: 5;
 
   /* colors */
   --color-yellow: rgb(255, 216, 20);
@@ -199,6 +200,10 @@ input {
 
 .btn-primary-yellow:hover {
   background-color: var(--color-yellow-dark);
+}
+
+.shoto-snackbar-container {
+  z-index: var(--z-alert);
 }
 
 @media screen and (max-width: 768px) {

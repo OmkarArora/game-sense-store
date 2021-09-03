@@ -20,7 +20,7 @@ export const AlertProvider = ({ children }) => {
       <Snackbar
         onClose={() => setSnackbar(false)}
         open={snackbar.openStatus}
-        autoHideDuration={3000}
+        autoHideDuration={5000}
       >
         <Alert
           severity={snackbar.type}
