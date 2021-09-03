@@ -44,7 +44,9 @@ export const UserProfile = () => {
         {isUserLoggedIn && <button onClick={logoutHandler}>Log out</button>}
         <div>
           <h2>Your Orders</h2>
-          {orders && orders.length===0 && <div className="no-orders-text">You haven't made any orders</div>}
+          {appState !== "loading" && orders && orders.length === 0 && (
+            <div className="no-orders-text">You haven't made any orders</div>
+          )}
           {appState === "loading" && "Loading..."}
           <div className="container-orders">
             {orders &&
