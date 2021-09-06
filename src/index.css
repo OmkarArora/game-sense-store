@@ -215,6 +215,10 @@ input {
   z-index: var(--z-alert);
 }
 
+a.link-banner {
+  text-decoration: none;
+}
+
 @media screen and (max-width: 768px) {
   .main-container-products .games-list {
     margin-left: 0;

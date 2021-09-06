@@ -23,7 +23,9 @@ export const Home = () => {
       {screenWidth < 768 && navPhoneVisible && <NavPhone active="discover" />}
       <Header active="discover" />
       <div className="container-new-product">
-        <Banner />
+        <Link to="/playstation" className="link-banner">
+          <Banner />
+        </Link>
       </div>
       <h3>New Releases</h3>
       {appState === "loading" && (
