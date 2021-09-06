@@ -56,6 +56,15 @@ export const Cart = () => {
     navigate("/");
   };
 
+  const onPaymentError = (error) => {
+    setSnackbar({
+      openStatus: true,
+      type: "error",
+      data: "Payment failed, try again later",
+    });
+    setCheckoutLoading(false);
+  }
+
   return (
     <div className="container-app">
       {screenWidth < 768 && navPhoneVisible && <NavPhone active="" />}
@@ -149,7 +158,8 @@ export const Cart = () => {
                       productDetailsForPayment,
                       userId,
                       fulfilOrder,
-                      setCheckoutLoading
+                      setCheckoutLoading,
+                      onPaymentError
                     );
                   }}
                 >

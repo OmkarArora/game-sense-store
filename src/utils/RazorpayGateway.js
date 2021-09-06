@@ -4,7 +4,8 @@ export const displayRazorpay = async (
   products,
   userId,
   fulfilOrder,
-  setCheckoutLoading
+  setCheckoutLoading,
+  onPaymentError
 ) => {
   const { data } = await axios.post(
     `${process.env.REACT_APP_BACKEND}/payments/razorpay`,
@@ -21,6 +22,16 @@ export const displayRazorpay = async (
     description: "Wallet Transaction",
     image: `${process.env.REACT_APP_BACKEND}/logo.png`,
     order_id: data.id,
+    prefill: {
+      name: "Tanjiro Kamado",
+      contact: "+919999999999",
+      email: "tanjiro@example.com",
+      method: "card",
+      "card[name]": "Tanjiro Kamado",
+      "card[number]": "4111111111111111",
+      "card[expiry]": "12/31",
+      "card[cvv]": "123",
+    },
     modal: {
       ondismiss: function () {
         setCheckoutLoading(false);
@@ -28,7 +39,7 @@ export const displayRazorpay = async (
     },
     handler: async function (response) {
       try {
-        const {data: successData} = await axios.post(
+        const { data: successData } = await axios.post(
           `${process.env.REACT_APP_BACKEND}/users/${userId}/orders`,
           {
             products,
@@ -40,7 +51,7 @@ export const displayRazorpay = async (
         );
         fulfilOrder(successData.orders);
       } catch (error) {
-        console.error(error);
+        onPaymentError(error);
       }
     },
   };
